@@ -60,8 +60,8 @@ const {
 
       <!-- Subtitle -->
       <p 
-        class="text-xl md:text-2xl lg:text-3xl mb-10 md:mb-12 max-w-3xl mx-auto text-balance animate-fade-in"
-        style="animation-delay: 0.15s; color: var(--color-text-secondary);"
+        class="text-xl md:text-2xl lg:text-3xl mb-10 md:mb-12 max-w-3xl mx-auto text-balance animate-fade-in hero-subtitle-gradient"
+        style="animation-delay: 0.15s;"
         set:html={subtitle}
       >
       </p>
@@ -296,6 +296,16 @@ const {
     font-weight: 700;
     color: #ffffff;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  }
+
+  /* Gradient text for subtitle */
+  .hero-subtitle-gradient {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: none;
   }
 
   /* Hero logo */
