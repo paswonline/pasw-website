@@ -7,9 +7,10 @@ interface Props {
   videoId: string;
   title?: string;
   aspectRatio?: '16/9' | '4/3';
+  id?: string;
 }
 
-const { videoId, title = 'Film YouTube', aspectRatio = '16/9' } = Astro.props;
+const { videoId, title = 'Film YouTube', aspectRatio = '16/9', id } = Astro.props;
 
 // Extract video ID from URL if full URL is provided
 function extractVideoId(input: string): string {
@@ -20,7 +21,7 @@ function extractVideoId(input: string): string {
 const cleanVideoId = extractVideoId(videoId);
 ---
 
-<div class="youtube-container">
+<div class="youtube-container" id={id}>
   <!-- Decorative background -->
   <div class="youtube-bg-pattern"></div>
   

@@ -62,10 +62,11 @@ const videos = [
                 videoId={video.id}
                 title={video.title}
                 aspectRatio="16/9"
+                id={`video-${video.id}`}
               />
               
               {/* Video Info Card */}
-              <div class="filmy-video-info-card">
+              <div class="filmy-video-info-card" data-video-id={video.id}>
                 <div class="filmy-video-info-content">
                   <h3 class="filmy-video-title">
                     {video.title}
@@ -73,6 +74,20 @@ const videos = [
                   <p class="filmy-video-description">
                     {video.description}
                   </p>
+                  <div class="filmy-scroll-indicator">
+                    <button 
+                      class="scroll-to-video-btn"
+                      data-target-video={video.id}
+                      aria-label="Przewiń do filmu"
+                    >
+                      <span class="scroll-btn-text">Zobacz film</span>
+                      <div class="scroll-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -231,6 +246,54 @@ const videos = [
     margin: 0 auto;
   }
 
+  .filmy-scroll-indicator {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .scroll-to-video-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-to-video-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(229, 57, 53, 0.4);
+  }
+
+  .scroll-to-video-btn:active {
+    transform: translateY(0);
+  }
+
+  .scroll-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .scroll-to-video-btn:hover .scroll-arrow {
+    transform: translateY(2px);
+  }
+
+  .scroll-btn-text {
+    font-weight: 600;
+  }
+
   .filmy-cta-section {
     margin-top: 6rem;
   }
@@ -324,5 +387,39 @@ const videos = [
     document.addEventListener('DOMContentLoaded', initScrollAnimations);
   } else {
     initScrollAnimations();
+  }
+
+  // Scroll to video functionality
+  function initScrollToVideo() {
+    const scrollButtons = document.querySelectorAll('.scroll-to-video-btn');
+    
+    scrollButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const targetVideoId = this.getAttribute('data-target-video');
+        const targetElement = document.getElementById(`video-${targetVideoId}`);
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+          
+          // Add highlight effect
+          targetElement.style.transition = 'box-shadow 0.3s ease';
+          targetElement.style.boxShadow = '0 0 30px rgba(229, 57, 53, 0.6)';
+          
+          setTimeout(() => {
+            targetElement.style.boxShadow = '';
+          }, 2000);
+        }
+      });
+    });
+  }
+
+  // Initialize scroll to video functionality
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollToVideo);
+  } else {
+    initScrollToVideo();
   }
 </script>
