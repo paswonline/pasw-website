@@ -1,0 +1,445 @@
+---
+/**
+ * Hero Section for Homepage
+ * Features: Dark background, bold typography, gradient animation (desktop only)
+ */
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaPrimaryLabel: string;
+  ctaPrimaryUrl: string;
+  ctaSecondaryLabel?: string;
+  ctaSecondaryUrl?: string;
+}
+
+const {
+  title,
+  subtitle,
+  ctaPrimaryLabel,
+  ctaPrimaryUrl,
+  ctaSecondaryLabel,
+  ctaSecondaryUrl,
+} = Astro.props;
+---
+
+<section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-base">
+  <!-- Background Image -->
+  <div class="absolute inset-0 hero-bg-image"></div>
+  
+  <!-- Dark overlay for text readability -->
+  <div class="absolute inset-0 bg-black/60"></div>
+
+  <!-- Animated background orbs -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+  </div>
+
+  <!-- Floating particles -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+    <div class="particle particle-5"></div>
+    <div class="particle particle-6"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="container-custom relative z-10 py-20 md:py-0">
+    <div class="max-w-5xl mx-auto text-center">
+      <!-- Logo -->
+      <div class="hero-logo animate-fade-in" style="animation-delay: 0.1s;">
+        <img 
+          src="/images/pasw_logo.svg" 
+          alt="Logo Pszczyńskiej Akademii Sztuk Walki"
+          class="hero-logo-img logo-white"
+        />
+      </div>
+
+      <!-- Subtitle -->
+      <p 
+        class="text-xl md:text-2xl lg:text-3xl mb-10 md:mb-12 max-w-3xl mx-auto text-balance animate-fade-in"
+        style="animation-delay: 0.15s; color: var(--color-text-secondary);"
+        set:html={subtitle}
+      >
+      </p>
+
+      <!-- CTAs -->
+      <div 
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in"
+        style="animation-delay: 0.2s;"
+      >
+        <a
+          href={ctaPrimaryUrl}
+          class="btn btn-primary text-lg px-8 py-4 w-full sm:w-auto"
+        >
+          {ctaPrimaryLabel}
+        </a>
+
+        {ctaSecondaryLabel && ctaSecondaryUrl && (
+          <a
+            href={ctaSecondaryUrl}
+            class="btn btn-secondary text-lg px-8 py-4 w-full sm:w-auto"
+          >
+            {ctaSecondaryLabel}
+          </a>
+        )}
+      </div>
+
+      <!-- Scroll indicator - Glass badge style -->
+      <div class="mt-16 md:mt-20">
+        <a
+          href="#usps"
+          class="scroll-badge group"
+          aria-label="Przewiń w dół"
+        >
+          <div class="glass-badge">
+            <div class="badge-content">
+              <div class="badge-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="w-5 h-5"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                </svg>
+              </div>
+              <span class="badge-text">Poznaj PASW</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hero title - white and very bold */
+  .hero-title {
+    color: var(--color-white) !important;
+    -webkit-text-fill-color: var(--color-white) !important;
+    font-weight: 900 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+  }
+
+  /* Animated background orbs */
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  .hero-orb-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+    top: -10%;
+    left: -5%;
+    animation: float1 15s infinite;
+  }
+
+  .hero-orb-2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, var(--color-gold) 0%, transparent 70%);
+    bottom: -10%;
+    right: -5%;
+    animation: float2 18s infinite;
+  }
+
+  .hero-orb-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    animation: float3 20s infinite;
+  }
+
+  @keyframes float1 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(30px, 50px) scale(1.1);
+    }
+  }
+
+  @keyframes float2 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-40px, -30px) scale(1.15);
+    }
+  }
+
+  @keyframes float3 {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(calc(-50% + 20px), calc(-50% - 40px)) scale(1.2);
+    }
+  }
+
+  /* Floating particles */
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .particle-1 {
+    top: 20%;
+    left: 10%;
+    animation: particleFloat 12s infinite;
+  }
+
+  .particle-2 {
+    top: 40%;
+    left: 80%;
+    animation: particleFloat 15s infinite;
+    animation-delay: -2s;
+  }
+
+  .particle-3 {
+    top: 60%;
+    left: 30%;
+    animation: particleFloat 18s infinite;
+    animation-delay: -4s;
+  }
+
+  .particle-4 {
+    top: 30%;
+    right: 20%;
+    animation: particleFloat 14s infinite;
+    animation-delay: -6s;
+  }
+
+  .particle-5 {
+    bottom: 20%;
+    left: 60%;
+    animation: particleFloat 16s infinite;
+    animation-delay: -8s;
+  }
+
+  .particle-6 {
+    bottom: 40%;
+    right: 40%;
+    animation: particleFloat 13s infinite;
+    animation-delay: -10s;
+  }
+
+  @keyframes particleFloat {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+      opacity: 0.2;
+    }
+    25% {
+      transform: translateY(-30px) translateX(15px);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(-50px) translateX(-10px);
+      opacity: 0.4;
+    }
+    75% {
+      transform: translateY(-30px) translateX(20px);
+      opacity: 0.5;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-orb,
+    .particle {
+      animation: none;
+    }
+    .hero-title {
+      text-shadow: none;
+    }
+  }
+
+  .hero-bg-image {
+    background-image: url('/images/PASW_treningi-4.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+  }
+
+  /* Ensure text remains readable */
+  .hero-title,
+  .hero-subtitle {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Strong text styling in subtitle */
+  .hero-subtitle strong {
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  }
+
+  /* Hero logo */
+  .hero-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .hero-logo-img {
+    height: 150px;
+    width: auto;
+    max-width: 400px;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.4));
+  }
+
+  .logo-white {
+    filter: brightness(0) invert(1) drop-shadow(0 6px 20px rgba(0, 0, 0, 0.4));
+  }
+
+  @media (min-width: 768px) {
+    .hero-logo-img {
+      height: 200px;
+      max-width: 500px;
+    }
+  }
+
+      @media (min-width: 1024px) {
+        .hero-logo-img {
+          height: 250px;
+          max-width: 600px;
+        }
+      }
+
+      /* Glass Badge Scroll Indicator */
+      .scroll-badge {
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .glass-badge {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        padding: 0.75rem 1.5rem;
+        box-shadow: 
+          0 8px 32px rgba(0, 0, 0, 0.1),
+          0 2px 8px rgba(0, 0, 0, 0.05),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: badgeFloat 3s ease-in-out infinite;
+      }
+
+      .badge-content {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: white;
+      }
+
+      .badge-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .badge-text {
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.025em;
+        transition: color 0.3s ease;
+      }
+
+      /* Hover effects */
+      .scroll-badge:hover .glass-badge {
+        background: rgba(212, 175, 55, 0.2);
+        border-color: rgba(212, 175, 55, 0.4);
+        box-shadow: 
+          0 12px 40px rgba(212, 175, 55, 0.2),
+          0 4px 16px rgba(0, 0, 0, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        animation: none;
+      }
+
+      .scroll-badge:hover .badge-icon {
+        transform: translateY(2px);
+        color: var(--color-gold);
+      }
+
+      .scroll-badge:hover .badge-text {
+        color: var(--color-gold);
+      }
+
+      /* Focus state */
+      .scroll-badge:focus {
+        outline: none;
+      }
+
+      .scroll-badge:focus .glass-badge {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+      }
+
+      /* Animation */
+      @keyframes badgeFloat {
+        0%, 100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-4px);
+        }
+      }
+
+      /* Reduce motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        .glass-badge {
+          animation: none;
+        }
+        
+        .scroll-badge:hover .glass-badge {
+          transform: translateY(-1px);
+        }
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .glass-badge {
+          padding: 0.625rem 1.25rem;
+        }
+        
+        .badge-text {
+          font-size: 0.8rem;
+        }
+        
+        .badge-icon {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    </style>
+

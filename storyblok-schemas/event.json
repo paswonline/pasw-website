@@ -1,0 +1,87 @@
+{
+  "name": "event",
+  "display_name": "Event",
+  "is_root": true,
+  "is_nestable": false,
+  "component_group_uuid": null,
+  "schema": {
+    "title": {
+      "type": "text",
+      "pos": 0,
+      "required": true,
+      "translatable": true,
+      "description": "Tytuł wydarzenia"
+    },
+    "slug": {
+      "type": "text",
+      "pos": 1,
+      "required": true,
+      "translatable": false,
+      "description": "URL-friendly slug (generowany z tytułu)"
+    },
+    "date": {
+      "type": "datetime",
+      "pos": 2,
+      "required": true,
+      "translatable": false,
+      "description": "Data i godzina wydarzenia"
+    },
+    "cover": {
+      "type": "asset",
+      "pos": 3,
+      "filetypes": ["images"],
+      "translatable": false,
+      "description": "Zdjęcie główne"
+    },
+    "excerpt": {
+      "type": "textarea",
+      "pos": 4,
+      "max_length": 200,
+      "translatable": true,
+      "description": "Krótki opis (max 200 znaków)"
+    },
+    "body": {
+      "type": "richtext",
+      "pos": 5,
+      "required": true,
+      "translatable": true,
+      "description": "Treść główna"
+    },
+    "ctaLabel": {
+      "type": "text",
+      "pos": 6,
+      "default_value": "Zapisz się",
+      "translatable": true,
+      "description": "Tekst na przycisku CTA"
+    },
+    "ctaUrl": {
+      "type": "text",
+      "pos": 7,
+      "translatable": false,
+      "description": "Link do akcji (URL)"
+    },
+    "tags": {
+      "type": "options",
+      "pos": 8,
+      "options": [
+        {
+          "value": "szkolenia",
+          "name": "Szkolenia"
+        },
+        {
+          "value": "zawody",
+          "name": "Zawody"
+        },
+        {
+          "value": "ogłoszenie",
+          "name": "Ogłoszenie"
+        }
+      ],
+      "min_options": 0,
+      "max_options": null,
+      "translatable": false,
+      "description": "Tagi wydarzenia"
+    }
+  }
+}
+

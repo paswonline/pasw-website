@@ -1,0 +1,131 @@
+---
+/**
+ * Single Event/News Detail Page
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getEvents, getEventBySlug } from '../../lib/cms';
+import { formatDate } from '../../lib/seo';
+import { getImageUrl } from '../../lib/cloudinary';
+
+export async function getStaticPaths() {
+  const events = await getEvents();
+  return events.map((event) => ({
+    params: { slug: event.slug },
+    props: { event },
+  }));
+}
+
+const { slug } = Astro.params;
+const event = await getEventBySlug(slug);
+
+if (!event) {
+  return Astro.redirect('/404');
+}
+
+const imageUrl = event.cover ? getImageUrl(event.cover, { width: 1200, height: 630 }) : undefined;
+const formattedDate = formatDate(event.date);
+---
+
+<BaseLayout
+  title={event.title}
+  description={event.excerpt}
+  image={imageUrl}
+  type="article"
+>
+  <article class="section-padding bg-base">
+    <div class="container-custom max-w-4xl">
+      {/* Back link */}
+      <a
+        href="/aktualnosci"
+        class="inline-flex items-center gap-2 text-gray-400 hover:text-primary mb-8 transition-colors focus:outline-primary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-5 h-5"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        </svg>
+        Wróć do aktualności
+      </a>
+
+      {/* Header */}
+      <header class="mb-8">
+        {/* Date */}
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <time datetime={event.date} class="text-primary font-semibold">
+            {formattedDate}
+          </time>
+        </div>
+
+        {/* Title */}
+        <h1 class="heading-lg font-display text-white mb-6">
+          {event.title}
+        </h1>
+
+        {/* Excerpt */}
+        {event.excerpt && (
+          <p class="text-xl text-gray-400 leading-relaxed">
+            {event.excerpt}
+          </p>
+        )}
+      </header>
+
+      {/* Cover Image */}
+      {event.cover && (
+        <div class="mb-8 rounded-lg overflow-hidden">
+          <img
+            src={imageUrl}
+            alt={event.title}
+            class="w-full h-auto"
+          />
+        </div>
+      )}
+
+      {/* Content */}
+      <div class="prose prose-invert prose-lg max-w-none">
+        <div class="text-gray-300 leading-relaxed whitespace-pre-line">
+          {event.body}
+        </div>
+      </div>
+
+      {/* CTA */}
+      {event.ctaLabel && event.ctaUrl && (
+        <div class="mt-12 p-8 bg-gray-900 border border-gray-800 rounded-lg text-center">
+          <a
+            href={event.ctaUrl}
+            class="btn btn-primary text-lg px-8 py-4"
+          >
+            {event.ctaLabel}
+          </a>
+        </div>
+      )}
+
+      {/* Back link (bottom) */}
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <a
+          href="/aktualnosci"
+          class="inline-flex items-center gap-2 text-gray-400 hover:text-primary transition-colors focus:outline-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-5 h-5"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+          Zobacz więcej aktualności
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+

@@ -1,0 +1,224 @@
+---
+/**
+ * Header component with sticky behavior, mobile drawer, and full keyboard accessibility
+ */
+import { getGlobalSettings } from '../lib/cms';
+
+const settings = await getGlobalSettings();
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/', label: 'Start' },
+  { href: '/aktualnosci', label: 'Aktualności' },
+  { href: '/filmy', label: 'Filmy' },
+  { href: '/historia', label: 'Historia' },
+  { href: '/nasze-sekcje', label: 'Nasze Sekcje' },
+];
+
+function isActive(path: string, currentPath: string): boolean {
+  if (path === '/') return currentPath === '/';
+  return currentPath.startsWith(path);
+}
+---
+
+<a href="#main-content" class="skip-to-content">
+  Przejdź do treści głównej
+</a>
+
+<header 
+  id="site-header" 
+  class="fixed top-0 left-0 right-0 z-40 bg-base/95 backdrop-blur-sm border-b border-gray-800 transition-transform duration-300"
+  data-header
+>
+  <nav class="container-custom py-4" aria-label="Nawigacja główna">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+          <a 
+            href="/" 
+            class="header-logo-link focus:outline-primary"
+            aria-label={settings?.siteName || 'Strona główna PASW'}
+          >
+            <img 
+              src="/images/pasw_logo.svg" 
+              alt="Logo Pszczyńskiej Akademii Sztuk Walki"
+              class="header-logo logo-white"
+            />
+          </a>
+
+      <!-- Desktop Navigation -->
+      <ul class="hidden md:flex items-center space-x-8" role="list">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class={`text-sm font-semibold transition-colors hover:text-primary focus:text-primary ${
+                isActive(item.href, currentPath)
+                  ? 'text-primary'
+                  : 'text-white'
+              }`}
+              aria-current={isActive(item.href, currentPath) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Mobile Menu Button -->
+      <button
+        type="button"
+        class="md:hidden p-2 text-white hover:text-primary transition-colors focus:outline-primary"
+        aria-label="Otwórz menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-mobile-menu-toggle
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-6 h-6"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="md:hidden hidden mt-4 pb-4 border-t border-gray-800"
+      data-mobile-menu
+    >
+      <ul class="space-y-3 mt-4" role="list">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class={`block py-2 text-base font-semibold transition-colors hover:text-primary focus:text-primary ${
+                isActive(item.href, currentPath)
+                  ? 'text-primary'
+                  : 'text-white'
+              }`}
+              aria-current={isActive(item.href, currentPath) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- Spacer to prevent content jump -->
+<div class="h-16" aria-hidden="true"></div>
+
+<script>
+  // Header scroll behavior: hide on scroll down, show on scroll up
+  let lastScrollY = 0;
+  let ticking = false;
+
+  function updateHeader() {
+    const header = document.querySelector('[data-header]') as HTMLElement;
+    if (!header) return;
+
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      // Scrolling down
+      header.style.transform = 'translateY(-100%)';
+    } else {
+      // Scrolling up
+      header.style.transform = 'translateY(0)';
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobile menu toggle
+  const menuToggle = document.querySelector('[data-mobile-menu-toggle]');
+  const mobileMenu = document.querySelector('[data-mobile-menu]');
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      mobileMenu.classList.toggle('hidden');
+      
+      // Update button label
+      menuToggle.setAttribute(
+        'aria-label',
+        isExpanded ? 'Otwórz menu' : 'Zamknij menu'
+      );
+    });
+
+    // Close menu on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.add('hidden');
+        menuToggle.setAttribute('aria-label', 'Otwórz menu');
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (
+        !menuToggle.contains(target) &&
+        !mobileMenu.contains(target) &&
+        menuToggle.getAttribute('aria-expanded') === 'true'
+      ) {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.add('hidden');
+        menuToggle.setAttribute('aria-label', 'Otwórz menu');
+      }
+    });
+  }
+</script>
+
+<style>
+  .header-logo-link {
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+  }
+
+  .header-logo-link:hover {
+    opacity: 0.8;
+  }
+
+  .header-logo {
+    height: 50px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+  }
+
+  .header-logo-mobile {
+    height: 40px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+  }
+</style>
+

@@ -1,0 +1,36 @@
+---
+/**
+ * Upcoming Events Section for Homepage - Simplified version
+ * Shows only title and button to news page
+ */
+---
+
+<section class="section-padding" style="background-color: var(--color-surface-gray);">
+  <div class="container-custom">
+    {/* Section Header */}
+    <div class="text-center">
+      <h2 class="heading-lg font-display mb-6" style="color: var(--color-white);">
+        Nadchodzące wydarzenia
+      </h2>
+      
+      {/* Button to news page */}
+      <a
+        href="/aktualnosci"
+        class="btn btn-news inline-flex items-center gap-2"
+      >
+        Zobacz, co się dzieje w naszej akademii
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

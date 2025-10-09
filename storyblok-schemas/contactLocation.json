@@ -1,0 +1,42 @@
+{
+  "name": "contactLocation",
+  "display_name": "Contact Location",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_uuid": null,
+  "schema": {
+    "city": {
+      "type": "text",
+      "pos": 0,
+      "required": true,
+      "translatable": true,
+      "description": "Miasto"
+    },
+    "address": {
+      "type": "text",
+      "pos": 1,
+      "required": true,
+      "translatable": true,
+      "description": "Adres"
+    },
+    "phone": {
+      "type": "text",
+      "pos": 2,
+      "translatable": false,
+      "description": "Telefon kontaktowy"
+    },
+    "email": {
+      "type": "text",
+      "pos": 3,
+      "translatable": false,
+      "description": "Email (opcjonalny)"
+    },
+    "website": {
+      "type": "text",
+      "pos": 4,
+      "translatable": false,
+      "description": "Strona internetowa (URL)"
+    }
+  }
+}
+

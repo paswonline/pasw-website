@@ -1,0 +1,55 @@
+{
+  "heroTitle": "",
+  "heroSubtitle": "I Ty możesz zostać <strong>wojownikiem!</strong>",
+  "heroCtaPrimaryLabel": "NASZE SEKCJE",
+  "heroCtaPrimaryUrl": "/nasze-sekcje",
+  "heroCtaSecondaryLabel": "",
+  "heroCtaSecondaryUrl": "",
+  "usps": [
+    {
+      "icon": "shield",
+      "title": "Licencjonowani trenerzy",
+      "description": "Nasze zajęcia prowadzą doświadczeni instruktorzy z wieloletnim stażem i międzynarodowymi certyfikatami."
+    },
+    {
+      "icon": "users",
+      "title": "Treningi dla początkujących",
+      "description": "Nie musisz mieć wcześniejszego doświadczenia. Oferujemy programy dla osób na każdym poziomie zaawansowania."
+    },
+    {
+      "icon": "calendar",
+      "title": "Start już od 5 roku życia",
+      "description": "Prowadzimy zajęcia dla dzieci, młodzieży i dorosłych. Każdy znajdzie coś dla siebie."
+    }
+  ],
+  "highlights": [
+    {
+      "metricLabel": "Lata działalności",
+      "metricValue": "67+",
+      "description": "Od 1957 roku kultywujemy tradycję sztuk walki"
+    },
+    {
+      "metricLabel": "Instruktorów",
+      "metricValue": "100+",
+      "description": "Licencjonowanych, z wieloletnim doświadczeniem"
+    },
+    {
+      "metricLabel": "Uczestników",
+      "metricValue": "2000+",
+      "description": "Rocznie trenuje w naszych sekcjach"
+    }
+  ],
+  "showUpcomingEvents": true,
+  "miniGalleryLimit": 8,
+  "testimonials": [
+    {
+      "quote": "PASW to nie tylko trening, ale prawdziwa szkoła życia. Dziękuję za lata nauki i niesamowitą atmosferę!",
+      "author": "Jan Kowalski"
+    },
+    {
+      "quote": "Profesjonalna kadra, świetna organizacja i przyjazne podejście do każdego ucznia. Gorąco polecam!",
+      "author": "Anna Nowak"
+    }
+  ]
+}
+

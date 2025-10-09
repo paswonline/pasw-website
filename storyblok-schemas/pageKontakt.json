@@ -1,0 +1,59 @@
+{
+  "name": "pageKontakt",
+  "display_name": "Page: Kontakt",
+  "is_root": true,
+  "is_nestable": false,
+  "component_group_uuid": null,
+  "schema": {
+    "heading": {
+      "type": "text",
+      "pos": 0,
+      "default_value": "Kontakt",
+      "required": true,
+      "translatable": true,
+      "description": "Nagłówek strony"
+    },
+    "address": {
+      "type": "text",
+      "pos": 1,
+      "required": true,
+      "translatable": true,
+      "description": "Adres główny"
+    },
+    "phone": {
+      "type": "text",
+      "pos": 2,
+      "required": true,
+      "translatable": false,
+      "description": "Numer telefonu"
+    },
+    "email": {
+      "type": "text",
+      "pos": 3,
+      "required": true,
+      "translatable": false,
+      "description": "Adres email"
+    },
+    "mapEmbedUrl": {
+      "type": "text",
+      "pos": 4,
+      "translatable": false,
+      "description": "URL do osadzenia mapy Google Maps (embed URL)"
+    },
+    "hours": {
+      "type": "richtext",
+      "pos": 5,
+      "translatable": true,
+      "description": "Godziny otwarcia / zajęć"
+    },
+    "locations": {
+      "type": "bloks",
+      "pos": 6,
+      "restrict_components": true,
+      "component_whitelist": ["contactLocation"],
+      "translatable": true,
+      "description": "Lista wszystkich lokalizacji"
+    }
+  }
+}
+

@@ -1,0 +1,53 @@
+{
+  "name": "usp",
+  "display_name": "USP",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_uuid": null,
+  "schema": {
+    "icon": {
+      "type": "option",
+      "pos": 0,
+      "required": true,
+      "options": [
+        {
+          "value": "shield",
+          "name": "Tarcza"
+        },
+        {
+          "value": "users",
+          "name": "Ludzie"
+        },
+        {
+          "value": "star",
+          "name": "Gwiazda"
+        },
+        {
+          "value": "trophy",
+          "name": "Trofeum"
+        },
+        {
+          "value": "calendar",
+          "name": "Kalendarz"
+        }
+      ],
+      "translatable": false,
+      "description": "Ikona (wybierz jedną)"
+    },
+    "title": {
+      "type": "text",
+      "pos": 1,
+      "required": true,
+      "translatable": true,
+      "description": "Tytuł"
+    },
+    "description": {
+      "type": "textarea",
+      "pos": 2,
+      "required": true,
+      "translatable": true,
+      "description": "Opis"
+    }
+  }
+}
+

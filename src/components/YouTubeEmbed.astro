@@ -1,0 +1,105 @@
+---
+/**
+ * YouTube iframe embed - simple and reliable
+ * Direct embed without click-to-play complexity
+ */
+interface Props {
+  videoId: string;
+  title?: string;
+  aspectRatio?: '16/9' | '4/3';
+}
+
+const { videoId, title = 'Film YouTube', aspectRatio = '16/9' } = Astro.props;
+
+// Extract video ID from URL if full URL is provided
+function extractVideoId(input: string): string {
+  const match = input.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+  return match ? match[1] : input;
+}
+
+const cleanVideoId = extractVideoId(videoId);
+---
+
+<div class="youtube-container">
+  <!-- Decorative background -->
+  <div class="youtube-bg-pattern"></div>
+  
+  <!-- Main video wrapper -->
+  <div 
+    class="youtube-embed-wrapper overflow-hidden rounded-2xl shadow-2xl"
+    style={`aspect-ratio: ${aspectRatio};`}
+  >
+    <iframe
+      src={`https://www.youtube-nocookie.com/embed/${cleanVideoId}?rel=0&modestbranding=1`}
+      title={title}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      loading="lazy"
+      class="absolute inset-0 w-full h-full rounded-2xl"
+    ></iframe>
+
+    <!-- Decorative corners -->
+    <div class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white/30 rounded-tl-lg pointer-events-none"></div>
+    <div class="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-white/30 rounded-tr-lg pointer-events-none"></div>
+    <div class="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-white/30 rounded-bl-lg pointer-events-none"></div>
+    <div class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-white/30 rounded-br-lg pointer-events-none"></div>
+  </div>
+</div>
+
+<style>
+  .youtube-container {
+    position: relative;
+    margin: 2rem 0;
+  }
+
+  .youtube-bg-pattern {
+    position: absolute;
+    inset: -2rem;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(229, 57, 53, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+    border-radius: 2rem;
+    z-index: -1;
+  }
+
+  .youtube-embed-wrapper {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 3px solid var(--color-gold);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(212, 175, 55, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .youtube-embed-wrapper:hover {
+    border-color: var(--color-primary);
+    box-shadow: 
+      0 24px 48px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(229, 57, 53, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+  /* Decorative corners styling */
+  .youtube-embed-wrapper > div[class*="border"] {
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .youtube-embed-wrapper:hover > div[class*="border"] {
+    border-color: rgba(229, 57, 53, 0.6);
+  }
+
+  @media (max-width: 768px) {
+    .youtube-container {
+      margin: 1.5rem 0;
+    }
+
+    .youtube-bg-pattern {
+      inset: -1rem;
+    }
+  }
+</style>
+

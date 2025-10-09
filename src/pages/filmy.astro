@@ -1,0 +1,328 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import YouTubeEmbed from '../components/YouTubeEmbed.astro';
+
+const videos = [
+  {
+    id: 'DNyUKdNNAPw',
+    title: 'Mistrz Józef Brudny i historia PASW',
+    description: 'Poznaj historię Pszczyńskiej Akademii Sztuk Walki opowiedzianą przez samego założyciela, ś.p. Wielkiego Mistrza Józefa Brudnego.'
+  },
+  {
+    id: 'P_CdCyu1R5I',
+    title: 'Uroczystość odsłonięcia kamienia z tablicą pamięci',
+    description: 'Uroczystość odsłonięcia kamienia z tablicą pamięci - ważny moment w historii Akademii.'
+  },
+  {
+    id: 'JT1p4MyatWc',
+    title: 'Grupa ZEN - lata 80-te',
+    description: 'Historyczne nagranie Grupy ZEN z lat 80-tych - początki i rozwój stylu walki z Pszczyny.'
+  },
+  {
+    id: 'vAZ8Zs-4Iwg',
+    title: 'Pokazy PASW - The best',
+    description: 'Najlepsze pokazy Pszczyńskiej Akademii Sztuk Walki - umiejętności naszych instruktorów i uczniów.'
+  },
+  {
+    id: 'toaTlxPI3TE',
+    title: 'Trening Grupy ZEN 14.05.2024',
+    description: 'Współczesny trening Grupy ZEN z 14 maja 2024 roku - kontynuacja tradycji i rozwoju stylu.'
+  }
+];
+---
+
+<BaseLayout
+  title="Filmy - Pszczyńska Akademia Sztuk Walki"
+  description="Zobacz filmy prezentujące Pszczyńską Akademię Sztuk Walki - pokazy umiejętności, historię Akademii i treningi."
+>
+  <!-- Background pattern -->
+  <div class="filmy-bg-pattern"></div>
+  
+  <div class="filmy-main">
+    <div class="container-custom max-w-6xl">
+      {/* Hero Section */}
+      <header class="filmy-hero">
+        <div class="filmy-hero-content">
+          <h1 class="filmy-title">
+            Filmy
+          </h1>
+          <p class="filmy-subtitle">
+            Poznaj Pszczyńską Akademię Sztuk Walki przez pryzmat filmów. Zobacz pokazy umiejętności, historię Akademii i nasze treningi.
+          </p>
+        </div>
+        <div class="filmy-hero-decoration"></div>
+      </header>
+
+      {/* Videos Grid */}
+      <section class="filmy-videos-section">
+        <div class="filmy-videos-grid">
+          {videos.map((video, index) => (
+            <div class="filmy-video-item" data-animate-on-scroll>
+              <YouTubeEmbed 
+                videoId={video.id}
+                title={video.title}
+                aspectRatio="16/9"
+              />
+              
+              {/* Video Info Card */}
+              <div class="filmy-video-info-card">
+                <div class="filmy-video-info-content">
+                  <h3 class="filmy-video-title">
+                    {video.title}
+                  </h3>
+                  <p class="filmy-video-description">
+                    {video.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section class="filmy-cta-section">
+        <div class="filmy-cta-card">
+          <h2 class="filmy-cta-title">Zainspirowany?</h2>
+          <p class="filmy-cta-description">
+            Zobacz jak Ty możesz zostać częścią naszej Akademii. Sprawdź nasze sekcje i rozpocznij swoją przygodę ze sztukami walki!
+          </p>
+          <div class="filmy-cta-buttons">
+            <a href="/nasze-sekcje" class="btn btn-primary">
+              Nasze Sekcje
+            </a>
+            <a href="/historia" class="btn btn-outline">
+              Poznaj historię
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .filmy-bg-pattern {
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(229, 57, 53, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+      linear-gradient(135deg, var(--color-surface-light) 0%, #f5f5f5 100%);
+    z-index: -1;
+  }
+
+  .filmy-main {
+    position: relative;
+    min-height: 100vh;
+    padding: 4rem 0;
+  }
+
+  .filmy-hero {
+    position: relative;
+    text-align: center;
+    margin-bottom: 6rem;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--color-surface-light) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border-radius: 2rem;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  }
+
+  .filmy-hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .filmy-title {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    line-height: 1.1;
+    color: var(--color-text-dark);
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .filmy-subtitle {
+    font-size: 1.25rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .filmy-hero-decoration {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(229, 57, 53, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .filmy-videos-section {
+    margin-bottom: 6rem;
+  }
+
+  .filmy-videos-grid {
+    display: grid;
+    gap: 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .filmy-video-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+
+  .filmy-video-item.animate-slide-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .filmy-video-info-card {
+    margin-top: 2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.95) 100%);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.08),
+      0 0 0 1px rgba(212, 175, 55, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .filmy-video-info-card:hover {
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 
+      0 15px 40px rgba(0, 0, 0, 0.12),
+      0 0 20px rgba(212, 175, 55, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .filmy-video-info-content {
+    text-align: center;
+  }
+
+  .filmy-video-title {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--color-text-dark);
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .filmy-video-description {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .filmy-cta-section {
+    margin-top: 6rem;
+  }
+
+  .filmy-cta-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.95) 100%);
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    border-radius: 2rem;
+    padding: 3rem;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+  }
+
+  .filmy-cta-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--color-text-dark);
+    margin-bottom: 1rem;
+  }
+
+  .filmy-cta-description {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  .filmy-cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .filmy-title {
+      font-size: 2rem;
+    }
+
+    .filmy-hero {
+      padding: 3rem 1.5rem;
+    }
+
+    .filmy-videos-grid {
+      gap: 3rem;
+    }
+
+    .filmy-cta-card {
+      padding: 2rem;
+    }
+
+    .filmy-cta-title {
+      font-size: 2rem;
+    }
+
+    .filmy-cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .filmy-cta-buttons .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+</style>
+
+<script>
+  // Animate elements on scroll
+  function initScrollAnimations() {
+    const elements = document.querySelectorAll('[data-animate-on-scroll]');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-slide-up');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollAnimations);
+  } else {
+    initScrollAnimations();
+  }
+</script>

@@ -1,0 +1,31 @@
+{
+  "name": "milestone",
+  "display_name": "Milestone",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_uuid": null,
+  "schema": {
+    "year": {
+      "type": "number",
+      "pos": 0,
+      "required": true,
+      "translatable": false,
+      "description": "Rok wydarzenia"
+    },
+    "title": {
+      "type": "text",
+      "pos": 1,
+      "required": true,
+      "translatable": true,
+      "description": "Tytuł wydarzenia"
+    },
+    "description": {
+      "type": "textarea",
+      "pos": 2,
+      "required": true,
+      "translatable": true,
+      "description": "Opis wydarzenia"
+    }
+  }
+}
+

@@ -1,0 +1,755 @@
+---
+/**
+ * Historia Akademii (History) Page
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import YouTubeEmbed from '../components/YouTubeEmbed.astro';
+import { getHistoria } from '../lib/cms';
+
+const historia = await getHistoria();
+---
+
+<BaseLayout
+  title="Historia Akademii"
+  description="Historia Pszczyńskiej Akademii Sztuk Walki od 1957 roku. Poznaj historię założenia i rozwoju jednej z najstarszych szkół sztuk walki w Polsce."
+>
+  <!-- Background pattern -->
+  <div class="historia-bg-pattern"></div>
+  
+  <div class="historia-main">
+    <div class="container-custom max-w-6xl">
+      {historia && (
+        <>
+          {/* Hero Section */}
+          <header class="historia-hero">
+            <div class="historia-hero-content">
+              <h1 class="historia-title">
+                {historia.title}
+              </h1>
+              <p class="historia-subtitle">
+                O historii Pszczyńskiej Akademii mówi sam twórca i jej założyciel ś.p. Wielki Mistrz <strong>Józef Brudny</strong>
+              </p>
+            </div>
+            <div class="historia-hero-decoration"></div>
+          </header>
+
+          {/* YouTube Video Section */}
+          {historia.videoUrl && (
+            <section class="historia-video-section">
+              <YouTubeEmbed 
+                videoId={historia.videoUrl}
+                title="Historia Pszczyńskiej Akademii Sztuk Walki - Wielki Mistrz Józef Brudny"
+                aspectRatio="16/9"
+              />
+            </section>
+          )}
+
+          {/* Józef Brudny Portrait Section */}
+          <section class="founder-portrait-section">
+            <div class="founder-portrait-container">
+              <div class="founder-portrait-frame">
+                <div class="portrait-decorative-corner portrait-corner-tl"></div>
+                <div class="portrait-decorative-corner portrait-corner-tr"></div>
+                <div class="portrait-decorative-corner portrait-corner-bl"></div>
+                <div class="portrait-decorative-corner portrait-corner-br"></div>
+                
+                <img 
+                  src="/images/jozef-brudny-portrait.jpg"
+                  alt="Wielki Mistrz Józef Brudny - Założyciel Pszczyńskiej Akademii Sztuk Walki"
+                  class="founder-portrait-image"
+                  loading="lazy"
+                />
+                
+                <div class="portrait-shine-effect"></div>
+              </div>
+              
+              <div class="founder-portrait-info">
+                <div class="portrait-memorial-badge">★ In Memoriam ★</div>
+                <h3 class="founder-name">Wielki Mistrz<br/><strong>Józef Brudny</strong></h3>
+                <p class="founder-title">Założyciel i Twórca PASW</p>
+                <p class="founder-years">1957 - ∞</p>
+                <div class="founder-quote">
+                  <div class="quote-mark">"</div>
+                  <p class="quote-text">
+                    Harmonia duszy, intelektu i ciała - fundament prawdziwego wojownika
+                  </p>
+                  <div class="quote-mark quote-mark-end">"</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Main Content */}
+          <section class="historia-content-section">
+            <div class="historia-content">
+              <div class="historia-text">
+                <h2 class="historia-text-title">Początki Akademii</h2>
+                <div class="historia-paragraphs">
+                  <div class="historia-paragraph">
+                    <p class="historia-text-content">
+                      Historia Pszczyńskiej Akademii Sztuk Walki zaczyna się już w połowie lat 50-tych ubiegłego wieku, kiedy to w <strong class="historia-highlight">1957 roku Mistrz Józef Brudny</strong> wraz z bratem Janem, zakładają w Pszczynie na Śląsku pierwszą grupę treningową, która później staje się jednym z pierwszych i zarazem najstarszych ośrodków sztuk walki w Polsce.
+                    </p>
+                  </div>
+
+                  <div class="historia-paragraph">
+                    <p class="historia-text-content">
+                      Bracia dorastają w wielopokoleniowej śląskiej rodzinie, otoczeni miłością. Z drugiej strony dostrzegają brutalność otaczającego świata i zaczynają zastanawiać się w jaki sposób można obronić się przed agresją innych. Podczas osobistych dyskusji i obserwacji przyrody kształtują nowe rozwiązania techniczne, które najczęściej oparte są o <em class="historia-emphasis">naturalne reakcje odruchowe człowieka</em>.
+                    </p>
+                  </div>
+
+                  <div class="historia-paragraph">
+                    <p class="historia-text-content">
+                      Europejski system myślenia, tradycja rodzinna i regionalna mają szeroki wpływ na charakter metodyki stylu walki z Pszczyny. Trudności w zdobywaniu wiedzy w tym temacie potęguje od samego początku brak lektury fachowej na rynku krajowym. Rozpoczyna się nauka od podstaw – <strong class="historia-highlight">bez mistrzów</strong>.
+                    </p>
+                  </div>
+
+                  <div class="historia-paragraph">
+                    <p class="historia-text-content">
+                      Wokół braci Brudnych zbiera się grupa zapaleńców, którzy z odpowiedzi na pytania problemowe budują pewien model, styl. Już po kilku latach określono poważny zbiór technik walki: <span class="historia-techniques">pady, przewroty, trzymania, dźwignie, rzuty, podcięcia, uderzenia rękami i nogami</span>.
+                    </p>
+                  </div>
+
+                  <div class="historia-paragraph historia-paragraph-final">
+                    <p class="historia-text-content">
+                      W taki sposób zaczął się kształtować styl walki, który swym wymiarem przekraczał ramy fizycznego rozwoju umiejętności lecz dążył do wszechstronnego modelu rozwoju człowieka opartego na wartościach chrześcijańskich w myśl idei <em class="historia-philosophy">harmonii duszy, intelektu i ciała</em>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Milestones Timeline */}
+          {historia.milestones && historia.milestones.length > 0 && (
+            <section class="historia-timeline-section">
+              <div class="historia-timeline-header">
+                <h2 class="historia-timeline-title">Najważniejsze wydarzenia</h2>
+                <div class="historia-timeline-subtitle">
+                  Kluczowe momenty w rozwoju Akademii
+                </div>
+              </div>
+              
+              <div class="historia-timeline">
+                {historia.milestones.map((milestone, index) => (
+                  <div 
+                    class="timeline-item-enhanced"
+                    data-animate-on-scroll
+                  >
+                    <div class="timeline-item-content">
+                      <div class="timeline-year-badge">
+                        <span class="timeline-year">{milestone.year}</span>
+                      </div>
+                      
+                      <div class="timeline-card">
+                        <h3 class="timeline-card-title">
+                          {milestone.title}
+                        </h3>
+                        <p class="timeline-card-description">
+                          {milestone.description}
+                        </p>
+                        <div class="timeline-card-decoration"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .historia-bg-pattern {
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 10% 20%, rgba(229, 57, 53, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+      linear-gradient(135deg, var(--color-surface-light) 0%, #f5f5f5 100%);
+    z-index: -1;
+  }
+
+  .historia-main {
+    position: relative;
+    min-height: 100vh;
+    padding: 4rem 0;
+  }
+
+  .historia-hero {
+    position: relative;
+    text-align: center;
+    margin-bottom: 6rem;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--color-surface-light) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border-radius: 2rem;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  }
+
+  .historia-hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .historia-title {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    line-height: 1.1;
+    color: var(--color-text-dark);
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .historia-subtitle {
+    font-size: 1.25rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Strong text styling in subtitle */
+  .historia-subtitle strong {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .historia-hero-decoration {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(229, 57, 53, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .historia-video-section {
+    margin-bottom: 6rem;
+  }
+
+  /* Founder Portrait Section */
+  .founder-portrait-section {
+    margin-bottom: 6rem;
+    padding: 0 1rem;
+  }
+
+  .founder-portrait-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.95) 100%);
+    border-radius: 2rem;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.1),
+      0 0 40px rgba(212, 175, 55, 0.15);
+  }
+
+  @media (min-width: 768px) {
+    .founder-portrait-container {
+      grid-template-columns: 350px 1fr;
+      padding: 4rem;
+    }
+  }
+
+  .founder-portrait-frame {
+    position: relative;
+    aspect-ratio: 3/4;
+    max-width: 350px;
+    margin: 0 auto;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 4px solid var(--color-gold);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 0 30px rgba(212, 175, 55, 0.4),
+      inset 0 2px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .founder-portrait-frame:hover {
+    border-color: var(--color-primary);
+    box-shadow: 
+      0 30px 60px rgba(0, 0, 0, 0.4),
+      0 0 50px rgba(229, 57, 53, 0.5),
+      inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  .founder-portrait-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(20%) contrast(1.1);
+    transition: filter 0.4s ease;
+  }
+
+  .founder-portrait-frame:hover .founder-portrait-image {
+    filter: grayscale(0%) contrast(1.15);
+  }
+
+  /* Decorative corners */
+  .portrait-decorative-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.6);
+    z-index: 10;
+    transition: all 0.3s ease;
+  }
+
+  .portrait-corner-tl {
+    top: 1rem;
+    left: 1rem;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+  }
+
+  .portrait-corner-tr {
+    top: 1rem;
+    right: 1rem;
+    border-left: none;
+    border-bottom: none;
+    border-top-right-radius: 8px;
+  }
+
+  .portrait-corner-bl {
+    bottom: 1rem;
+    left: 1rem;
+    border-right: none;
+    border-top: none;
+    border-bottom-left-radius: 8px;
+  }
+
+  .portrait-corner-br {
+    bottom: 1rem;
+    right: 1rem;
+    border-left: none;
+    border-top: none;
+    border-bottom-right-radius: 8px;
+  }
+
+  .founder-portrait-frame:hover .portrait-decorative-corner {
+    border-color: rgba(229, 57, 53, 0.8);
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Shine effect on hover */
+  .portrait-shine-effect {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 60%,
+      transparent 100%
+    );
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+
+  .founder-portrait-frame:hover .portrait-shine-effect {
+    transform: translateX(200%) translateY(200%) rotate(45deg);
+  }
+
+  /* Portrait info section */
+  .founder-portrait-info {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .founder-portrait-info {
+      text-align: left;
+      padding: 0 1rem;
+    }
+  }
+
+  .portrait-memorial-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    box-shadow: 
+      0 4px 12px rgba(229, 57, 53, 0.3),
+      0 0 20px rgba(212, 175, 55, 0.2);
+    animation: badgePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes badgePulse {
+    0%, 100% {
+      box-shadow: 
+        0 4px 12px rgba(229, 57, 53, 0.3),
+        0 0 20px rgba(212, 175, 55, 0.2);
+    }
+    50% {
+      box-shadow: 
+        0 6px 16px rgba(229, 57, 53, 0.4),
+        0 0 30px rgba(212, 175, 55, 0.3);
+    }
+  }
+
+  .founder-name {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    line-height: 1.2;
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .founder-name strong {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  .founder-title {
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .founder-years {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin-bottom: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .founder-quote {
+    position: relative;
+    padding: 1.5rem;
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 4px solid var(--color-gold);
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .quote-mark {
+    font-family: Georgia, serif;
+    font-size: 4rem;
+    line-height: 0;
+    color: var(--color-gold);
+    opacity: 0.3;
+    position: absolute;
+    top: 1rem;
+    left: 0.5rem;
+  }
+
+  .quote-mark-end {
+    top: auto;
+    bottom: -1rem;
+    left: auto;
+    right: 0.5rem;
+    transform: rotate(180deg);
+  }
+
+  .quote-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .historia-content-section {
+    margin-bottom: 6rem;
+  }
+
+  .historia-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 248, 248, 0.9) 100%);
+    border-radius: 2rem;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+  }
+
+  .historia-text-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--color-text-dark);
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .historia-text-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    border-radius: 2px;
+  }
+
+  .historia-paragraphs {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .historia-paragraph {
+    position: relative;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 1rem;
+    border-left: 4px solid var(--color-gold);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .historia-paragraph:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+  }
+
+  .historia-text-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-text-dark);
+    margin: 0;
+  }
+
+  /* Unified accent styles - all highlights look the same for professional consistency */
+  .historia-highlight,
+  .historia-emphasis,
+  .historia-techniques,
+  .historia-philosophy {
+    color: var(--color-gold);
+    font-weight: 600;
+    font-style: normal;
+    background: rgba(212, 175, 55, 0.12);
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+  }
+  
+  /* Subtle hover effect for better interactivity */
+  .historia-highlight:hover,
+  .historia-emphasis:hover,
+  .historia-techniques:hover,
+  .historia-philosophy:hover {
+    background: rgba(212, 175, 55, 0.2);
+  }
+
+  .historia-paragraph-final {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(229, 57, 53, 0.05) 100%);
+    border-left-color: var(--color-primary);
+  }
+
+  .historia-timeline-section {
+    margin-top: 6rem;
+  }
+
+  .historia-timeline-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .historia-timeline-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--color-text-dark);
+    margin-bottom: 1rem;
+  }
+
+  .historia-timeline-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  .historia-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .historia-timeline::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--color-primary) 0%, var(--color-gold) 100%);
+    border-radius: 2px;
+  }
+
+  .timeline-item-enhanced {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 6rem;
+  }
+
+  .timeline-item-content {
+    position: relative;
+  }
+
+  .timeline-year-badge {
+    position: absolute;
+    left: -4rem;
+    top: 0;
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(229, 57, 53, 0.3);
+    border: 4px solid white;
+  }
+
+  .timeline-year {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+  }
+
+  .timeline-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.95) 100%);
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    position: relative;
+    backdrop-filter: blur(10px);
+  }
+
+  .timeline-card::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: 2rem;
+    width: 0;
+    height: 0;
+    border-top: 1rem solid transparent;
+    border-bottom: 1rem solid transparent;
+    border-right: 1rem solid rgba(212, 175, 55, 0.2);
+  }
+
+  .timeline-card-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-text-dark);
+    margin-bottom: 1rem;
+  }
+
+  .timeline-card-description {
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .timeline-card-decoration {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    width: 1rem;
+    height: 1rem;
+    background: var(--color-gold);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .historia-title {
+      font-size: 2rem;
+    }
+
+    .historia-content {
+      padding: 2rem;
+    }
+
+    .historia-paragraph {
+      padding: 1rem;
+    }
+
+    .historia-timeline::before {
+      left: 1.5rem;
+    }
+
+    .timeline-item-enhanced {
+      padding-left: 4rem;
+    }
+
+    .timeline-year-badge {
+      left: -3rem;
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .timeline-year {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<script>
+  // Animate elements on scroll
+  function initScrollAnimations() {
+    const elements = document.querySelectorAll('[data-animate-on-scroll]');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-slide-up');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollAnimations);
+  } else {
+    initScrollAnimations();
+  }
+</script>
+

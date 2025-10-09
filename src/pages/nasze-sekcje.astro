@@ -1,0 +1,289 @@
+---
+/**
+ * Nasze Sekcje (Our Sections) Page
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getKontakt } from '../lib/cms';
+
+const kontakt = await getKontakt();
+
+// Sort locations alphabetically by city name
+const sortedLocations = kontakt?.locations?.sort((a, b) => 
+  a.city.localeCompare(b.city, 'pl', { sensitivity: 'base' })
+) || [];
+---
+
+<BaseLayout
+  title="Nasze Sekcje"
+  description="Poznaj wszystkie sekcje Pszczyńskiej Akademii Sztuk Walki. Znajdź najbliższą lokalizację i zapisz się na treningi."
+>
+  <div class="section-padding bg-base">
+    <div class="container-custom">
+      {kontakt && (
+        <>
+          {/* Page Header */}
+          <div class="text-center mb-12 md:mb-16">
+            <h1 class="heading-lg font-display text-white mb-4">
+              Nasze Sekcje
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+              Znajdź najbliższą sekcję Pszczyńskiej Akademii Sztuk Walki i zapisz się na treningi!
+            </p>
+            
+            {/* Search Box */}
+            <div class="max-w-md mx-auto">
+              <div class="relative">
+                <input
+                  type="text"
+                  id="location-search"
+                  placeholder="Wpisz swoją miejscowość..."
+                  class="w-full px-4 py-3 pl-12 bg-gray-900 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                />
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </div>
+              
+              {/* Search Results */}
+              <div id="search-results" class="mt-4 hidden">
+                <div class="bg-gray-900 border border-gray-700 rounded-xl p-4">
+                  <div id="search-suggestions" class="text-sm text-gray-400"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {sortedLocations && sortedLocations.length > 0 && (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="locations-grid">
+              {sortedLocations.map((location) => (
+                <div 
+                  class="location-card bg-gray-900 border border-gray-800 rounded-lg p-6 hover:border-primary transition-colors"
+                  data-city={location.city.toLowerCase()}
+                  data-address={location.address.toLowerCase()}
+                >
+                  <h3 class="text-xl font-display text-white mb-3">
+                    {location.city}
+                  </h3>
+                  <div class="space-y-3 text-sm text-gray-400">
+                    <p class="text-gray-300">{location.address}</p>
+                    
+                    {location.schedule && (
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span class="text-gold font-medium">{location.schedule}</span>
+                      </div>
+                    )}
+                    
+                    {location.groups && location.groups.length > 0 && (
+                      <div class="space-y-2">
+                        {location.groups.map((group) => (
+                          <div class="bg-gray-800/50 rounded p-2">
+                            <div class="font-medium text-white text-xs mb-1">{group.name}</div>
+                            <div class="text-gold text-xs">{group.time}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {location.phone && (
+                      <div class="flex items-center gap-2 pt-2 border-t border-gray-700">
+                        <svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        <a 
+                          href={`tel:${location.phone.replace(/\s/g, '')}`}
+                          class="hover:text-primary transition-colors focus:outline-primary"
+                        >
+                          {location.phone}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // City data with approximate coordinates for distance calculation
+  const cityData = {
+    'gliwice': { lat: 50.3013, lng: 18.6497 },
+    'iwonicz': { lat: 49.5731, lng: 21.8542 },
+    'mysłowice': { lat: 50.2070, lng: 19.1396 },
+    'poręba': { lat: 50.0167, lng: 19.1333 },
+    'posada górna': { lat: 49.5833, lng: 21.8333 },
+    'racibórz': { lat: 50.0875, lng: 18.2197 },
+    'siemianowice śląskie': { lat: 50.3058, lng: 19.0322 },
+    'skoczów': { lat: 49.8000, lng: 18.7833 },
+    'strumień': { lat: 49.9167, lng: 18.7667 },
+    'wodzisław śląski': { lat: 50.0039, lng: 18.4567 },
+    'żory': { lat: 50.0449, lng: 18.7017 }
+  };
+
+  // Simple distance calculation (approximate)
+  function calculateDistance(lat1, lng1, lat2, lng2) {
+    const R = 6371; // Earth's radius in kilometers
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLng/2) * Math.sin(dLng/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  }
+
+  // Find closest city based on search input
+  function findClosestCity(searchTerm) {
+    const normalizedSearch = searchTerm.toLowerCase().trim();
+    
+    // First, try exact match
+    if (cityData[normalizedSearch]) {
+      return normalizedSearch;
+    }
+    
+    // Then try partial matches
+    const partialMatches = Object.keys(cityData).filter(city => 
+      city.includes(normalizedSearch) || normalizedSearch.includes(city)
+    );
+    
+    if (partialMatches.length > 0) {
+      return partialMatches[0];
+    }
+    
+    // If no matches, return null
+    return null;
+  }
+
+  function initLocationSearch() {
+    const searchInput = document.getElementById('location-search');
+    const searchResults = document.getElementById('search-results');
+    const searchSuggestions = document.getElementById('search-suggestions');
+    const locationCards = document.querySelectorAll('.location-card');
+    const locationsGrid = document.getElementById('locations-grid');
+
+    if (!searchInput || !searchResults || !searchSuggestions || !locationCards.length) {
+      return;
+    }
+
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.trim();
+      
+      if (searchTerm.length < 2) {
+        searchResults.classList.add('hidden');
+        // Reset all cards
+        locationCards.forEach(card => {
+          card.classList.remove('ring-2', 'ring-gold', 'bg-gray-800');
+          card.classList.add('bg-gray-900');
+        });
+        return;
+      }
+
+      const closestCity = findClosestCity(searchTerm);
+      
+      if (closestCity) {
+        // Highlight the matching card
+        locationCards.forEach(card => {
+          const cardCity = card.dataset.city;
+          if (cardCity === closestCity) {
+            card.classList.add('ring-2', 'ring-gold', 'bg-gray-800');
+            card.classList.remove('bg-gray-900');
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            card.classList.remove('ring-2', 'ring-gold', 'bg-gray-800');
+            card.classList.add('bg-gray-900');
+          }
+        });
+        
+        // Show search results
+        searchSuggestions.innerHTML = `
+          <div class="flex items-center gap-2 text-gold">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>Znaleziono sekcję w: <strong>${closestCity.charAt(0).toUpperCase() + closestCity.slice(1)}</strong></span>
+          </div>
+        `;
+        searchResults.classList.remove('hidden');
+      } else {
+        // Show suggestions for similar cities
+        const suggestions = Object.keys(cityData)
+          .filter(city => city.includes(searchTerm.toLowerCase()))
+          .slice(0, 3);
+        
+        if (suggestions.length > 0) {
+          searchSuggestions.innerHTML = `
+            <div class="text-gray-400 mb-2">Może chodziło Ci o:</div>
+            ${suggestions.map(city => `
+              <div class="text-gold cursor-pointer hover:text-white transition-colors" onclick="searchForCity('${city}')">
+                ${city.charAt(0).toUpperCase() + city.slice(1)}
+              </div>
+            `).join('')}
+          `;
+          searchResults.classList.remove('hidden');
+        } else {
+          searchResults.classList.add('hidden');
+        }
+        
+        // Reset all cards
+        locationCards.forEach(card => {
+          card.classList.remove('ring-2', 'ring-gold', 'bg-gray-800');
+          card.classList.add('bg-gray-900');
+        });
+      }
+    });
+
+    // Clear search on Escape key
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        this.value = '';
+        searchResults.classList.add('hidden');
+        locationCards.forEach(card => {
+          card.classList.remove('ring-2', 'ring-gold', 'bg-gray-800');
+          card.classList.add('bg-gray-900');
+        });
+      }
+    });
+  }
+
+  // Global function for clicking suggestions
+  window.searchForCity = function(cityName) {
+    const searchInput = document.getElementById('location-search');
+    if (searchInput) {
+      searchInput.value = cityName;
+      searchInput.dispatchEvent(new Event('input'));
+    }
+  };
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLocationSearch);
+  } else {
+    initLocationSearch();
+  }
+</script>
+
+<style>
+  .location-card {
+    transition: all 0.3s ease;
+  }
+  
+  .location-card.ring-2 {
+    animation: highlight 0.5s ease-in-out;
+  }
+  
+  @keyframes highlight {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+</style>

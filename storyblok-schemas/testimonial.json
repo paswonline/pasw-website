@@ -1,0 +1,24 @@
+{
+  "name": "testimonial",
+  "display_name": "Testimonial",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_uuid": null,
+  "schema": {
+    "quote": {
+      "type": "textarea",
+      "pos": 0,
+      "required": true,
+      "translatable": true,
+      "description": "Treść opinii"
+    },
+    "author": {
+      "type": "text",
+      "pos": 1,
+      "required": true,
+      "translatable": true,
+      "description": "Autor opinii"
+    }
+  }
+}
+

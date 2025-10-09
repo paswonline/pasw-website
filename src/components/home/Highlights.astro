@@ -1,0 +1,115 @@
+---
+/**
+ * Highlights Section with Animated Counters (desktop only)
+ */
+import type { Highlight } from '../../types';
+
+interface Props {
+  highlights: Highlight[];
+}
+
+const { highlights } = Astro.props;
+---
+
+<section class="section-padding bg-base border-y border-gray-800">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+      {highlights.map((highlight, index) => (
+        <div 
+          class="text-center"
+          data-animate-on-scroll
+          style={`animation-delay: ${index * 0.15}s;`}
+        >
+          {/* Metric Value */}
+          <div 
+            class="text-5xl md:text-6xl lg:text-7xl font-display text-primary mb-4"
+            data-counter
+            data-target={highlight.metricValue}
+          >
+            {highlight.metricValue}
+          </div>
+
+          {/* Metric Label */}
+          <div class="text-xl md:text-2xl font-display text-white mb-2">
+            {highlight.metricLabel}
+          </div>
+
+          {/* Description */}
+          <p class="text-white text-sm md:text-base" style="color: white !important;">
+            {highlight.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Animated counter (runs only on desktop and respects prefers-reduced-motion)
+  function initCounters() {
+    const counters = document.querySelectorAll('[data-counter]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 768;
+
+    if (prefersReducedMotion || isMobile) {
+      // Skip animation, just show the final value
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const counter = entry.target as HTMLElement;
+            const target = counter.getAttribute('data-target') || '';
+            
+            // Check if target is a number
+            const numericMatch = target.match(/\d+/);
+            if (numericMatch) {
+              const targetNumber = parseInt(numericMatch[0]);
+              const suffix = target.replace(/\d+/, '');
+              
+              animateCounter(counter, targetNumber, suffix);
+              observer.unobserve(counter);
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    counters.forEach((counter) => observer.observe(counter));
+  }
+
+  function animateCounter(element: HTMLElement, target: number, suffix: string) {
+    const duration = 2000; // 2 seconds
+    const frameDuration = 1000 / 60; // 60 FPS
+    const totalFrames = Math.round(duration / frameDuration);
+    let frame = 0;
+
+    const counter = setInterval(() => {
+      frame++;
+      const progress = frame / totalFrames;
+      const current = Math.round(target * easeOutQuad(progress));
+      
+      element.textContent = current + suffix;
+
+      if (frame === totalFrames) {
+        clearInterval(counter);
+        element.textContent = target + suffix;
+      }
+    }, frameDuration);
+  }
+
+  function easeOutQuad(t: number): number {
+    return t * (2 - t);
+  }
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCounters);
+  } else {
+    initCounters();
+  }
+</script>
+

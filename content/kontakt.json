@@ -1,0 +1,175 @@
+{
+  "heading": "Kontakt",
+  "address": "I Liceum Ogólnokształcące im Bolesława Chrobrego, ul. 3 Maja 7",
+  "phone": "604 422 726",
+  "email": "kontakt@pasw.pl",
+  "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2552.8!2d18.9503!3d49.9812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDU4JzUyLjMiTiAxOMKwNTcnMDEuMSJF!5e0!3m2!1spl!2spl!4v1234567890",
+  "hours": "Poniedziałek - Piątek: 17:00 - 21:00\nSobota: 10:00 - 14:00\nNiedziela: Zajęcia zgodnie z grafikiem",
+  "locations": [
+    {
+      "city": "Wodzisław Śląski",
+      "address": "Szkoła Podstawowa nr 3, ul. 26 Marca 9",
+      "phone": "604 422 726",
+      "schedule": "środy i piątki",
+      "groups": [
+        {
+          "name": "Dzieci 6-11 lat",
+          "time": "17:40 - 18:40"
+        },
+        {
+          "name": "Młodzież i Dorośli",
+          "time": "18:50 - 20:00"
+        }
+      ]
+    },
+    {
+      "city": "Racibórz",
+      "address": "Ośrodek dla Niesłyszących, ul. Karola Miarki 4",
+      "phone": "604 422 726",
+      "schedule": "środy i piątki",
+      "groups": [
+        {
+          "name": "Dzieci 5-7 lat",
+          "time": "16:30 - 17:15"
+        },
+        {
+          "name": "Dzieci 8-12 lat",
+          "time": "17:30 - 18:30"
+        },
+        {
+          "name": "Młodzież i Dorośli",
+          "time": "19:00 - 20:30"
+        }
+      ]
+    },
+    {
+      "city": "Gliwice",
+      "address": "Zespół Szkolno-Przedszkolny nr 3, ul. Żwirki i Wigury 85, sala budynku SP nr 5",
+      "phone": "604 422 726",
+      "schedule": "poniedziałki i środy",
+      "groups": [
+        {
+          "name": "Młodzież i Dorośli",
+          "time": "18:45 - 20:15"
+        }
+      ]
+    },
+    {
+      "city": "Posada Górna",
+      "address": "Szkoła Podstawowa, ul. 3 Maja",
+      "phone": "535 353 041",
+      "schedule": "poniedziałki",
+      "groups": [
+        {
+          "name": "Dzieci",
+          "time": "16:30 - 17:30"
+        }
+      ]
+    },
+    {
+      "city": "Iwonicz",
+      "address": "Zespół Szkół, ul. Zadwór",
+      "phone": "535 353 041",
+      "schedule": "poniedziałki i czwartki",
+      "groups": [
+        {
+          "name": "Grupa zaawansowana - Młodzież i Dorośli",
+          "time": "18:30 - 20:30"
+        }
+      ]
+    },
+    {
+      "city": "Żory",
+      "address": "Zespół Szkół nr 3, os. Sikorskiego 52",
+      "phone": "502 739 017",
+      "schedule": "poniedziałki i czwartki",
+      "groups": [
+        {
+          "name": "Wszystkie grupy",
+          "time": "17:30 - 19:00"
+        }
+      ]
+    },
+    {
+      "city": "Mysłowice",
+      "address": "Szkoła Podstawowa nr 2, ul. Piastowska 7",
+      "phone": "502 739 017",
+      "schedule": "środy",
+      "groups": [
+        {
+          "name": "Wszystkie grupy",
+          "time": "18:00 - 19:30"
+        }
+      ]
+    },
+    {
+      "city": "Mysłowice",
+      "address": "Liceum Ogólnokształcące nr 2, ul. Mikołowska 3",
+      "phone": "502 739 017",
+      "schedule": "piątki",
+      "groups": [
+        {
+          "name": "Wszystkie grupy",
+          "time": "18:00 - 19:30"
+        }
+      ]
+    },
+    {
+      "city": "Skoczów",
+      "address": "Szkoła Podstawowa nr 8, ul. G. Morcinka 20, osiedle Górny Bór",
+      "phone": "517 529 080",
+      "schedule": "środy i piątki",
+      "groups": [
+        {
+          "name": "Dzieci od 7 lat",
+          "time": "17:30 - 18:30"
+        },
+        {
+          "name": "Młodzież i Dorośli",
+          "time": "19:30 - 21:00"
+        }
+      ]
+    },
+    {
+      "city": "Strumień",
+      "address": "Szkoła Podstawowa im. Powstańców Śląskich, ul. 1 Maja",
+      "phone": "517 529 080",
+      "schedule": "czwartki",
+      "groups": [
+        {
+          "name": "Dzieci od 7 lat",
+          "time": "17:30 - 18:30"
+        },
+        {
+          "name": "Młodzież",
+          "time": "18:30 - 19:30"
+        }
+      ]
+    },
+    {
+      "city": "Poręba",
+      "address": "Szkoła Podstawowa, ul. Szkolna 8, koło Pszczyny",
+      "phone": "517 529 080",
+      "schedule": "poniedziałki",
+      "groups": [
+        {
+          "name": "Dzieci od 7 lat",
+          "time": "17:30 - 18:30"
+        }
+      ]
+    },
+    {
+      "city": "Siemianowice Śląskie",
+      "address": "Szkoła Podstawowa nr 5, ul. Michałkowicka 15",
+      "phone": "668 474 913",
+      "schedule": "poniedziałki i piątki",
+      "groups": [
+        {
+          "name": "Wszystkie grupy",
+          "time": "Poniedziałek: 18:30-20:00, Piątek: 17:00-18:30"
+        }
+      ]
+    }
+  ]
+}
+

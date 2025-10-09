@@ -1,0 +1,39 @@
+{
+  "name": "pageHistoria",
+  "display_name": "Page: Historia",
+  "is_root": true,
+  "is_nestable": false,
+  "component_group_uuid": null,
+  "schema": {
+    "title": {
+      "type": "text",
+      "pos": 0,
+      "default_value": "Historia Akademii",
+      "required": true,
+      "translatable": true,
+      "description": "Tytuł strony"
+    },
+    "videoUrl": {
+      "type": "text",
+      "pos": 1,
+      "translatable": false,
+      "description": "ID filmu YouTube (np. CxzGuIDNg1E) lub pełny URL"
+    },
+    "body": {
+      "type": "richtext",
+      "pos": 2,
+      "required": true,
+      "translatable": true,
+      "description": "Treść główna historii"
+    },
+    "milestones": {
+      "type": "bloks",
+      "pos": 3,
+      "restrict_components": true,
+      "component_whitelist": ["milestone"],
+      "translatable": true,
+      "description": "Kamienie milowe - ważne daty w historii"
+    }
+  }
+}
+

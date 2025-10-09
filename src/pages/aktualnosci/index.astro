@@ -1,0 +1,280 @@
+---
+/**
+ * Aktualności (News/Events) List Page
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventCard from '../../components/EventCard.astro';
+import { getEvents } from '../../lib/cms';
+
+const events = await getEvents();
+
+// Sort events by date (newest first)
+const sortedEvents = events.sort((a, b) => 
+  new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+---
+
+<BaseLayout
+  title="Aktualności"
+  description="Bieżące wydarzenia, zawody, szkolenia i ogłoszenia Pszczyńskiej Akademii Sztuk Walki."
+>
+  <!-- Background pattern -->
+  <div class="aktualnosci-bg-pattern"></div>
+  
+  <div class="aktualnosci-main">
+    <div class="container-custom max-w-6xl">
+      {/* Hero Section */}
+      <header class="aktualnosci-hero">
+        <div class="aktualnosci-hero-content">
+          <div class="hero-badge">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+            <span>Co nowego w PASW</span>
+          </div>
+          
+          <h1 class="aktualnosci-title">
+            Aktualności
+          </h1>
+          
+          <p class="aktualnosci-subtitle">
+            Bądź na bieżąco z wydarzeniami w naszej Akademii! Śledź najnowsze informacje o zawodach, szkoleniach, obozach treningowych i osiągnięciach naszych zawodników.
+          </p>
+        </div>
+        <div class="aktualnosci-hero-decoration"></div>
+      </header>
+
+      {/* Events Grid */}
+      <section class="aktualnosci-events-section">
+        {sortedEvents.length > 0 ? (
+          <div class="aktualnosci-events-grid">
+            {sortedEvents.map((event) => (
+              <div class="event-item-wrapper" data-animate-on-scroll>
+                <EventCard event={event} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="aktualnosci-empty-state">
+            <div class="empty-icon">
+              <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+            </div>
+            <h3 class="empty-title">Brak aktualności</h3>
+            <p class="empty-description">
+              Aktualnie nie ma żadnych nowych wpisów. Wróć wkrótce, aby być na bieżąco z wydarzeniami w PASW!
+            </p>
+          </div>
+        )}
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .aktualnosci-bg-pattern {
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(229, 57, 53, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+      var(--color-base);
+    z-index: -1;
+  }
+
+  .aktualnosci-main {
+    position: relative;
+    min-height: 100vh;
+    padding: 4rem 0;
+  }
+
+  /* Hero Section */
+  .aktualnosci-hero {
+    position: relative;
+    text-align: center;
+    margin-bottom: 6rem;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, rgba(27, 30, 34, 0.95) 0%, rgba(11, 13, 16, 0.9) 100%);
+    border-radius: 2rem;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.4),
+      0 0 40px rgba(212, 175, 55, 0.1);
+  }
+
+  .aktualnosci-hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Hero Badge */
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 50px;
+    box-shadow: 
+      0 4px 12px rgba(229, 57, 53, 0.3),
+      0 0 20px rgba(212, 175, 55, 0.2);
+    animation: badgeFloat 3s ease-in-out infinite;
+  }
+
+  @keyframes badgeFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .aktualnosci-title {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    line-height: 1.1;
+    color: var(--color-white);
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @media (min-width: 768px) {
+    .aktualnosci-title {
+      font-size: 4rem;
+    }
+  }
+
+  .aktualnosci-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 768px) {
+    .aktualnosci-subtitle {
+      font-size: 1.25rem;
+    }
+  }
+
+  .aktualnosci-hero-decoration {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(229, 57, 53, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+    border-radius: 50%;
+    z-index: 1;
+    filter: blur(40px);
+  }
+
+  /* Events Section */
+  .aktualnosci-events-section {
+    margin-bottom: 4rem;
+  }
+
+  .aktualnosci-events-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .event-item-wrapper {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+
+  .event-item-wrapper.animate-slide-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Empty State */
+  .aktualnosci-empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, rgba(27, 30, 34, 0.9) 0%, rgba(11, 13, 16, 0.8) 100%);
+    border-radius: 2rem;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+  }
+
+  .empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--color-gold);
+    border-radius: 1rem;
+  }
+
+  .empty-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--color-white);
+    margin-bottom: 1rem;
+  }
+
+  .empty-description {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .aktualnosci-hero {
+      padding: 3rem 1.5rem;
+    }
+
+    .aktualnosci-events-grid {
+      gap: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Animate elements on scroll
+  function initScrollAnimations() {
+    const elements = document.querySelectorAll('[data-animate-on-scroll]');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-slide-up');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollAnimations);
+  } else {
+    initScrollAnimations();
+  }
+</script>
+

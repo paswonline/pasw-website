@@ -1,0 +1,110 @@
+---
+/**
+ * Event Card component for displaying event preview
+ */
+import { formatDate } from '../lib/seo';
+import { getImageUrl } from '../lib/cloudinary';
+import type { Event } from '../types';
+
+interface Props {
+  event: Event;
+}
+
+const { event } = Astro.props;
+const imageUrl = event.cover ? getImageUrl(event.cover, { width: 600, height: 400 }) : '/images/placeholder-event.jpg';
+const formattedDate = formatDate(event.date);
+---
+
+<article class="group rounded-lg overflow-hidden transition-all duration-300 flex flex-col h-full event-card">
+  <!-- Image -->
+  <a href={`/aktualnosci/${event.slug}`} class="block relative overflow-hidden aspect-[3/2]">
+    <img
+      src={imageUrl}
+      alt={event.title}
+      loading="lazy"
+      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+    
+    <!-- Date badge -->
+    <div class="absolute top-4 left-4 px-3 py-1 rounded-md text-sm font-semibold shadow-lg event-date-badge">
+      {formattedDate}
+    </div>
+  </a>
+
+  <!-- Content -->
+  <div class="p-6 flex-1 flex flex-col">
+    <h3 class="text-xl md:text-2xl font-display mb-3 transition-colors event-title">
+      <a href={`/aktualnosci/${event.slug}`} class="focus:outline-primary">
+        {event.title}
+      </a>
+    </h3>
+
+    <p class="text-sm md:text-base mb-4 flex-1 line-clamp-3 event-excerpt">
+      {event.excerpt}
+    </p>
+
+    <!-- CTA -->
+    <a
+      href={`/aktualnosci/${event.slug}`}
+      class="inline-flex items-center font-semibold text-sm hover:underline focus:outline-primary group/link event-cta"
+    >
+      Czytaj więcej
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        class="w-4 h-4 ml-1 transition-transform group-hover/link:translate-x-1"
+        aria-hidden="true"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+      </svg>
+    </a>
+  </div>
+</article>
+
+<style>
+  .event-card {
+    background-color: var(--color-base);
+    border: 1px solid var(--color-gold);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+  }
+
+  .event-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 24px rgba(229, 57, 53, 0.2);
+  }
+
+  .event-date-badge {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    color: white;
+  }
+
+  .event-tag {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--color-gold);
+    border: 1px solid var(--color-gold);
+  }
+
+  .event-title {
+    color: var(--color-white);
+  }
+
+  .event-card:hover .event-title {
+    color: var(--color-gold);
+  }
+
+  .event-excerpt {
+    color: var(--color-text-secondary);
+  }
+
+  .event-cta {
+    color: var(--color-primary);
+  }
+
+  .event-cta:hover {
+    color: var(--color-gold);
+  }
+</style>
+

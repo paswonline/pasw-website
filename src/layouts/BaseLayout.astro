@@ -1,0 +1,146 @@
+---
+/**
+ * Base Layout - Main layout wrapper for all pages
+ */
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import type { SEOProps } from '../types';
+
+interface Props extends SEOProps {
+  schema?: object | object[];
+}
+
+const { title, description, image, canonical, type, schema } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <SEO 
+      title={title}
+      description={description}
+      image={image}
+      canonical={canonical}
+      type={type}
+    />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Schema.org JSON-LD -->
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
+  </head>
+  <body>
+    <Header />
+    
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    
+    <Footer />
+
+    <!-- Back to top button -->
+    <button
+      id="back-to-top"
+      type="button"
+      aria-label="Wróć na górę strony"
+      class="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-red-600 focus:outline-primary z-30"
+      data-back-to-top
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        class="w-6 h-6 mx-auto"
+        aria-hidden="true"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+      </svg>
+    </button>
+
+    <script>
+      // YouTube thumbnail handling - Global functions
+      window.handleThumbnailError = function(img) {
+        const thumbnailUrls = JSON.parse(img.dataset.thumbnailUrls || '[]');
+        const currentIndex = parseInt(img.dataset.thumbnailIndex || '0');
+        
+        console.log(`[YouTube] Thumbnail error: ${img.src}, trying next...`);
+        
+        if (currentIndex < thumbnailUrls.length - 1) {
+          // Try next thumbnail URL
+          const nextIndex = currentIndex + 1;
+          img.src = thumbnailUrls[nextIndex];
+          img.dataset.thumbnailIndex = nextIndex.toString();
+          console.log(`[YouTube] Trying thumbnail ${nextIndex + 1}/${thumbnailUrls.length}: ${img.src}`);
+        } else {
+          // All thumbnails failed, use simple fallback
+          console.log('[YouTube] All thumbnails failed, using fallback');
+          img.style.display = 'none';
+          img.parentElement.innerHTML = `
+            <div class="w-full h-full bg-gray-800 flex items-center justify-center rounded-2xl">
+              <div class="text-center text-white">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gray-700 rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <p class="text-sm opacity-75">Miniatura niedostępna</p>
+              </div>
+            </div>
+          `;
+        }
+      };
+
+      window.checkAndReplaceGrayThumbnail = function(img) {
+        console.log(`[YouTube] Image loaded: ${img.src}, size: ${img.naturalWidth}x${img.naturalHeight}`);
+        
+        // Only reject very small images (120x90) which are definitely placeholders
+        if (img.naturalWidth === 120 && img.naturalHeight === 90) {
+          console.log('[YouTube] Detected 120x90 placeholder, trying next...');
+          window.handleThumbnailError(img);
+        } else {
+          console.log('[YouTube] Thumbnail looks good, keeping it');
+        }
+      };
+
+      // Back to top button
+      const backToTopButton = document.querySelector('[data-back-to-top]') as HTMLButtonElement;
+
+      if (backToTopButton) {
+        function toggleBackToTop() {
+          if (window.scrollY > 300) {
+            backToTopButton.classList.remove('opacity-0', 'invisible');
+          } else {
+            backToTopButton.classList.add('opacity-0', 'invisible');
+          }
+        }
+
+        window.addEventListener('scroll', toggleBackToTop, { passive: true });
+
+        backToTopButton.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+

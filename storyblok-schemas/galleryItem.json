@@ -1,0 +1,30 @@
+{
+  "name": "galleryItem",
+  "display_name": "Gallery Item",
+  "is_root": true,
+  "is_nestable": false,
+  "component_group_uuid": null,
+  "schema": {
+    "image": {
+      "type": "asset",
+      "pos": 0,
+      "required": true,
+      "filetypes": ["images"],
+      "translatable": false,
+      "description": "Zdjęcie do galerii"
+    },
+    "caption": {
+      "type": "text",
+      "pos": 1,
+      "translatable": true,
+      "description": "Podpis zdjęcia"
+    },
+    "alt": {
+      "type": "text",
+      "pos": 2,
+      "translatable": true,
+      "description": "Tekst alternatywny dla niepełnosprawnych (accessibility)"
+    }
+  }
+}
+

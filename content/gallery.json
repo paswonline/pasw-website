@@ -1,0 +1,65 @@
+{
+  "items": [
+    {
+      "image": "placeholder-gallery-1.jpg",
+      "caption": "Trening kung-fu - grupa zaawansowana",
+      "alt": "Zawodnicy podczas treningu kung-fu"
+    },
+    {
+      "image": "placeholder-gallery-2.jpg",
+      "caption": "Zajęcia dla dzieci",
+      "alt": "Dzieci podczas zajęć z podstaw samoobrony"
+    },
+    {
+      "image": "placeholder-gallery-3.jpg",
+      "caption": "Letni obóz treningowy 2024",
+      "alt": "Uczestnicy obozu podczas treningu w górach"
+    },
+    {
+      "image": "placeholder-gallery-4.jpg",
+      "caption": "Ceremonia pasowania na stopnie mistrzowskie",
+      "alt": "Wielki Mistrz podczas ceremonii pasowania"
+    },
+    {
+      "image": "placeholder-gallery-5.jpg",
+      "caption": "Pokaz sztuk walki",
+      "alt": "Instruktorzy podczas pokazu technik walki"
+    },
+    {
+      "image": "placeholder-gallery-6.jpg",
+      "caption": "Trening z bronią tradycyjną",
+      "alt": "Ćwiczenia z kijem i mieczem"
+    },
+    {
+      "image": "placeholder-gallery-7.jpg",
+      "caption": "Mistrzostwa Polski - podium",
+      "alt": "Zawodnicy PASW na podium mistrzostw"
+    },
+    {
+      "image": "placeholder-gallery-8.jpg",
+      "caption": "Wspólne zdjęcie po treningu",
+      "alt": "Wszyscy uczestnicy treningu"
+    },
+    {
+      "image": "placeholder-gallery-9.jpg",
+      "caption": "Forma kata - prezentacja",
+      "alt": "Zawodnik wykonujący formę kata"
+    },
+    {
+      "image": "placeholder-gallery-10.jpg",
+      "caption": "Trening systemy",
+      "alt": "Zajęcia z rosyjskiej sztuki walki systema"
+    },
+    {
+      "image": "placeholder-gallery-11.jpg",
+      "caption": "Seminarium z mistrzem",
+      "alt": "Mistrz podczas seminarium szkoleniowego"
+    },
+    {
+      "image": "placeholder-gallery-12.jpg",
+      "caption": "Egzamin na stopnie",
+      "alt": "Kandydaci podczas egzaminu na wyższy stopień"
+    }
+  ]
+}
+

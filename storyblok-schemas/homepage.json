@@ -1,0 +1,115 @@
+{
+  "name": "homepage",
+  "display_name": "Homepage",
+  "is_root": true,
+  "is_nestable": false,
+  "component_group_uuid": null,
+  "schema": {
+    "heroTitle": {
+      "type": "text",
+      "pos": 0,
+      "required": true,
+      "translatable": true,
+      "description": "Tytuł hero"
+    },
+    "heroSubtitle": {
+      "type": "textarea",
+      "pos": 1,
+      "required": true,
+      "translatable": true,
+      "description": "Podtytuł hero"
+    },
+    "heroCtaPrimaryLabel": {
+      "type": "text",
+      "pos": 2,
+      "required": true,
+      "translatable": true,
+      "description": "Tekst głównego przycisku"
+    },
+    "heroCtaPrimaryUrl": {
+      "type": "text",
+      "pos": 3,
+      "required": true,
+      "translatable": false,
+      "description": "Link głównego przycisku"
+    },
+    "heroCtaSecondaryLabel": {
+      "type": "text",
+      "pos": 4,
+      "translatable": true,
+      "description": "Tekst drugiego przycisku (opcjonalny)"
+    },
+    "heroCtaSecondaryUrl": {
+      "type": "text",
+      "pos": 5,
+      "translatable": false,
+      "description": "Link drugiego przycisku"
+    },
+    "usps": {
+      "type": "bloks",
+      "pos": 6,
+      "restrict_components": true,
+      "component_whitelist": ["usp"],
+      "translatable": true,
+      "description": "USPs - nasze atuty (3-4 elementy)"
+    },
+    "highlights": {
+      "type": "bloks",
+      "pos": 7,
+      "restrict_components": true,
+      "component_whitelist": ["highlight"],
+      "translatable": true,
+      "description": "Liczby i statystyki (3 elementy)"
+    },
+    "showUpcomingEvents": {
+      "type": "boolean",
+      "pos": 8,
+      "default_value": true,
+      "translatable": false,
+      "description": "Pokaż sekcję nadchodzących wydarzeń?"
+    },
+    "miniGalleryLimit": {
+      "type": "number",
+      "pos": 9,
+      "default_value": "8",
+      "translatable": false,
+      "description": "Ile zdjęć pokazać w mini galerii?"
+    },
+    "testimonials": {
+      "type": "bloks",
+      "pos": 10,
+      "restrict_components": true,
+      "component_whitelist": ["testimonial"],
+      "translatable": true,
+      "description": "Opinie klientów (placeholder)"
+    },
+    "bigCtaTitle": {
+      "type": "text",
+      "pos": 11,
+      "required": true,
+      "translatable": true,
+      "description": "Tytuł sekcji Big CTA"
+    },
+    "bigCtaSubtitle": {
+      "type": "text",
+      "pos": 12,
+      "translatable": true,
+      "description": "Podtytuł sekcji Big CTA"
+    },
+    "bigCtaButtonLabel": {
+      "type": "text",
+      "pos": 13,
+      "required": true,
+      "translatable": true,
+      "description": "Tekst przycisku Big CTA"
+    },
+    "bigCtaButtonUrl": {
+      "type": "text",
+      "pos": 14,
+      "required": true,
+      "translatable": false,
+      "description": "Link przycisku Big CTA"
+    }
+  }
+}
+

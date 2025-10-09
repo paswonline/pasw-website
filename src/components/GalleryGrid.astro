@@ -1,0 +1,241 @@
+---
+/**
+ * Gallery Grid with Lightbox
+ */
+import { getImageUrl, getCloudinarySrcSet } from '../lib/cloudinary';
+import type { GalleryItem } from '../types';
+
+interface Props {
+  items: GalleryItem[];
+  columns?: 2 | 3 | 4;
+}
+
+const { items, columns = 4 } = Astro.props;
+
+const gridClasses = {
+  2: 'grid-cols-1 sm:grid-cols-2',
+  3: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+  4: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4',
+};
+---
+
+<div class={`grid ${gridClasses[columns]} gap-4`} data-gallery>
+  {items.map((item, index) => {
+    const thumbUrl = getImageUrl(item.image, { width: 400, height: 400, crop: 'fill' });
+    const fullUrl = getImageUrl(item.image, { width: 1920, quality: 'auto' });
+    
+    return (
+      <button
+        type="button"
+        class="group relative overflow-hidden rounded-lg aspect-square bg-gray-900 focus:outline-primary focus:ring-2 focus:ring-primary"
+        data-lightbox-trigger
+        data-lightbox-index={index}
+        aria-label={item.caption || `Zdjęcie ${index + 1}`}
+      >
+        <img
+          src={thumbUrl}
+          alt={item.alt || item.caption || `Zdjęcie galerii ${index + 1}`}
+          loading="lazy"
+          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+        />
+        
+        {/* Overlay with gradient */}
+        <div class="gallery-overlay">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+          </svg>
+        </div>
+
+        {/* Hidden data for lightbox */}
+        <span class="sr-only" data-full-image={fullUrl} data-caption={item.caption || ''}></span>
+      </button>
+    );
+  })}
+</div>
+
+<!-- Lightbox Modal -->
+<div
+  id="lightbox-modal"
+  class="fixed inset-0 z-50 bg-black/95 hidden items-center justify-center p-4"
+  data-lightbox-modal
+  role="dialog"
+  aria-modal="true"
+  aria-label="Podgląd zdjęcia"
+>
+  <button
+    type="button"
+    class="absolute top-4 right-4 text-white hover:text-primary focus:outline-primary z-10 w-12 h-12 flex items-center justify-center"
+    data-lightbox-close
+    aria-label="Zamknij podgląd"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <!-- Previous button -->
+  <button
+    type="button"
+    class="absolute left-4 text-white hover:text-primary focus:outline-primary z-10 w-12 h-12 flex items-center justify-center"
+    data-lightbox-prev
+    aria-label="Poprzednie zdjęcie"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+  </button>
+
+  <!-- Next button -->
+  <button
+    type="button"
+    class="absolute right-4 text-white hover:text-primary focus:outline-primary z-10 w-12 h-12 flex items-center justify-center"
+    data-lightbox-next
+    aria-label="Następne zdjęcie"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <!-- Image container -->
+  <div class="relative max-w-7xl max-h-full">
+    <img
+      id="lightbox-image"
+      src=""
+      alt=""
+      class="max-w-full max-h-[90vh] object-contain"
+      data-lightbox-image
+    />
+    <p
+      id="lightbox-caption"
+      class="text-white text-center mt-4 text-lg"
+      data-lightbox-caption
+    ></p>
+  </div>
+</div>
+
+<script>
+  // Lightbox functionality
+  function initLightbox() {
+    const triggers = document.querySelectorAll('[data-lightbox-trigger]');
+    const modal = document.querySelector('[data-lightbox-modal]') as HTMLElement;
+    const image = document.querySelector('[data-lightbox-image]') as HTMLImageElement;
+    const caption = document.querySelector('[data-lightbox-caption]') as HTMLElement;
+    const closeBtn = document.querySelector('[data-lightbox-close]');
+    const prevBtn = document.querySelector('[data-lightbox-prev]');
+    const nextBtn = document.querySelector('[data-lightbox-next]');
+
+    if (!modal || !image || !caption) return;
+
+    let currentIndex = 0;
+    const images: { url: string; caption: string; alt: string }[] = [];
+
+    // Collect image data
+    triggers.forEach((trigger, index) => {
+      const hiddenData = trigger.querySelector('[data-full-image]');
+      if (hiddenData) {
+        images.push({
+          url: hiddenData.getAttribute('data-full-image') || '',
+          caption: hiddenData.getAttribute('data-caption') || '',
+          alt: trigger.getAttribute('aria-label') || `Zdjęcie ${index + 1}`,
+        });
+      }
+    });
+
+    function showImage(index: number) {
+      currentIndex = index;
+      const img = images[currentIndex];
+      
+      image.src = img.url;
+      image.alt = img.alt;
+      caption.textContent = img.caption;
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(currentIndex);
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    }
+
+    // Event listeners
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const index = parseInt(trigger.getAttribute('data-lightbox-index') || '0');
+        showImage(index);
+      });
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+    prevBtn?.addEventListener('click', showPrev);
+    nextBtn?.addEventListener('click', showNext);
+
+    // Click outside to close
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('flex')) return;
+
+      switch (e.key) {
+        case 'Escape':
+          closeModal();
+          break;
+        case 'ArrowLeft':
+          showPrev();
+          break;
+        case 'ArrowRight':
+          showNext();
+          break;
+      }
+    });
+  }
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLightbox);
+  } else {
+    initLightbox();
+  }
+</script>
+
+<style>
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(229, 57, 53, 0) 0%, rgba(229, 57, 53, 0.6) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  button:hover .gallery-overlay {
+    opacity: 1;
+  }
+</style>
+

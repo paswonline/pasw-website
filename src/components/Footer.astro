@@ -1,0 +1,243 @@
+---
+/**
+ * Footer component with NAP (Name, Address, Phone), social links, and navigation
+ */
+import { getGlobalSettings } from '../lib/cms';
+
+const settings = await getGlobalSettings();
+const currentYear = new Date().getFullYear();
+
+const footerLinks = [
+  { href: '/', label: 'Start' },
+  { href: '/aktualnosci', label: 'Aktualności' },
+  { href: '/filmy', label: 'Filmy' },
+  { href: '/historia', label: 'Historia' },
+  { href: '/nasze-sekcje', label: 'Nasze Sekcje' },
+  { href: '/polityka-prywatnosci', label: 'Polityka prywatności' },
+];
+
+// Organization data
+const organizationData = {
+  fullName: 'FUNDACJA PSZCZYŃSKA AKADEMIA SZTUK WALKI IMIENIA JÓZEFA BRUDNEGO',
+  krs: '0000750171',
+  nip: '6381835838',
+  regon: '381638925',
+  address: 'Stefana Batorego 26',
+  postalCode: '43-200',
+  city: 'Pszczyna',
+  country: 'Polska',
+  email: 'j.warchal@vp.pl',
+};
+---
+
+<footer class="border-t footer-main" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Stopka strony</h2>
+  
+  <div class="container-custom py-12 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+      <!-- Logo -->
+      <div class="lg:col-span-1">
+        <div class="footer-logo mb-4">
+          <img 
+            src="/images/pasw_logo.svg" 
+            alt="Logo Pszczyńskiej Akademii Sztuk Walki"
+            class="footer-logo-img logo-white"
+          />
+        </div>
+        <p class="text-sm footer-text leading-relaxed">
+          Sztuki walki z tradycją od 1957 roku
+        </p>
+      </div>
+
+      <!-- Legal & Contact Data -->
+      <div>
+        <h3 class="text-lg font-display mb-4 footer-title">Dane Organizacji</h3>
+        <div class="space-y-3 text-sm footer-text">
+          <div class="footer-data-item footer-org-name">
+            <span class="footer-data-value font-semibold text-gold">
+              {organizationData.fullName}
+            </span>
+          </div>
+          <div class="footer-data-item">
+            <span class="footer-data-label">KRS:</span>
+            <span class="footer-data-value">{organizationData.krs}</span>
+          </div>
+          <div class="footer-data-item">
+            <span class="footer-data-label">NIP:</span>
+            <span class="footer-data-value">{organizationData.nip}</span>
+          </div>
+          <div class="footer-data-item">
+            <span class="footer-data-label">REGON:</span>
+            <span class="footer-data-value">{organizationData.regon}</span>
+          </div>
+          <div class="footer-data-item">
+            <span class="footer-data-label">Adres:</span>
+            <span class="footer-data-value">
+              {organizationData.address}<br />
+              {organizationData.postalCode} {organizationData.city}<br />
+              {organizationData.country}
+            </span>
+          </div>
+          <div class="footer-data-item">
+            <span class="footer-data-label">Email:</span>
+            <a 
+              href={`mailto:${organizationData.email}`}
+              class="footer-link footer-email-link"
+            >
+              {organizationData.email}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-display mb-4 footer-title">Nawigacja</h3>
+        <ul class="space-y-2 text-sm" role="list">
+          {footerLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="footer-link"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="mt-12 pt-8 text-sm text-center footer-copyright">
+      <p>
+        &copy; {currentYear} {organizationData.fullName}
+      </p>
+      <p class="mt-2 text-xs opacity-75">
+        Wszelkie prawa zastrzeżone.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-main {
+    background-color: var(--color-base);
+    border-top-color: rgba(212, 175, 55, 0.2);
+  }
+
+  .footer-title {
+    color: var(--color-white);
+  }
+
+  .footer-text {
+    color: var(--color-text-secondary);
+  }
+
+  .footer-label {
+    color: var(--color-white);
+  }
+
+  .footer-link {
+    color: var(--color-text-secondary);
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover {
+    color: var(--color-gold);
+  }
+
+  .footer-link:focus {
+    color: var(--color-gold);
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Organization data styling */
+  .footer-data-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  }
+
+  .footer-data-item:last-child {
+    border-bottom: none;
+  }
+
+  /* Organization name - full width, no grid */
+  .footer-org-name {
+    grid-template-columns: 1fr;
+    padding: 0.75rem 0;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-org-name .footer-data-value {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    letter-spacing: 0.3px;
+  }
+
+  .footer-data-label {
+    font-weight: 600;
+    color: var(--color-gold);
+    min-width: 70px;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-data-value {
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
+  .footer-email-link {
+    display: inline-block;
+    color: var(--color-text-secondary);
+    transition: all 0.3s;
+    padding: 0.25rem 0.75rem;
+    margin-left: -0.75rem;
+    border-radius: 0.375rem;
+    background: rgba(212, 175, 55, 0.05);
+  }
+
+  .footer-email-link:hover {
+    color: var(--color-gold);
+    background: rgba(212, 175, 55, 0.15);
+    transform: translateX(4px);
+  }
+
+  .footer-email-link:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    background: rgba(212, 175, 55, 0.2);
+  }
+
+  .footer-copyright {
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--color-text-secondary);
+  }
+
+  .footer-logo {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+      .footer-logo-img {
+        height: 60px;
+        width: auto;
+        max-width: 250px;
+        object-fit: contain;
+        opacity: 0.9;
+        transition: opacity 0.2s;
+      }
+
+      .footer-logo-img:hover {
+        opacity: 1;
+      }
+
+</style>
+

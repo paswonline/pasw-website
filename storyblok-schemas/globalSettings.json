@@ -1,0 +1,106 @@
+{
+  "name": "globalSettings",
+  "display_name": "Global Settings",
+  "is_root": true,
+  "is_nestable": false,
+  "component_group_uuid": null,
+  "schema": {
+    "siteName": {
+      "type": "text",
+      "pos": 0,
+      "default_value": "Pszczyńska Akademia Sztuk Walki",
+      "required": true,
+      "translatable": true,
+      "description": "Nazwa strony"
+    },
+    "logo": {
+      "type": "asset",
+      "pos": 1,
+      "filetypes": ["images"],
+      "translatable": false,
+      "description": "Logo (opcjonalne)"
+    },
+    "primaryColor": {
+      "type": "text",
+      "pos": 2,
+      "default_value": "#E53935",
+      "required": true,
+      "translatable": false,
+      "description": "Kolor główny (hex)"
+    },
+    "accentColor": {
+      "type": "text",
+      "pos": 3,
+      "default_value": "#FFFFFF",
+      "required": true,
+      "translatable": false,
+      "description": "Kolor akcentu (hex)"
+    },
+    "address": {
+      "type": "text",
+      "pos": 4,
+      "required": true,
+      "translatable": true,
+      "description": "Adres"
+    },
+    "city": {
+      "type": "text",
+      "pos": 5,
+      "required": true,
+      "translatable": true,
+      "description": "Miasto"
+    },
+    "postalCode": {
+      "type": "text",
+      "pos": 6,
+      "required": true,
+      "translatable": false,
+      "description": "Kod pocztowy"
+    },
+    "lat": {
+      "type": "number",
+      "pos": 7,
+      "translatable": false,
+      "description": "Szerokość geograficzna (latitude)"
+    },
+    "lng": {
+      "type": "number",
+      "pos": 8,
+      "translatable": false,
+      "description": "Długość geograficzna (longitude)"
+    },
+    "phone": {
+      "type": "text",
+      "pos": 9,
+      "required": true,
+      "translatable": false,
+      "description": "Telefon kontaktowy"
+    },
+    "email": {
+      "type": "text",
+      "pos": 10,
+      "required": true,
+      "translatable": false,
+      "description": "Email kontaktowy"
+    },
+    "facebookUrl": {
+      "type": "text",
+      "pos": 11,
+      "translatable": false,
+      "description": "URL profilu Facebook"
+    },
+    "instagramUrl": {
+      "type": "text",
+      "pos": 12,
+      "translatable": false,
+      "description": "URL profilu Instagram"
+    },
+    "youtubeUrl": {
+      "type": "text",
+      "pos": 13,
+      "translatable": false,
+      "description": "URL kanału YouTube"
+    }
+  }
+}
+

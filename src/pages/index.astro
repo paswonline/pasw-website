@@ -1,0 +1,43 @@
+---
+/**
+ * Homepage - Main landing page with all sections
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import USPs from '../components/home/USPs.astro';
+import Highlights from '../components/home/Highlights.astro';
+import UpcomingEvents from '../components/home/UpcomingEvents.astro';
+import { getHomepage, getGlobalSettings } from '../lib/cms';
+import { generateLocalBusinessSchema } from '../lib/seo';
+
+const homepage = await getHomepage();
+const settings = await getGlobalSettings();
+
+// Generate schema.org data
+const schema = settings ? generateLocalBusinessSchema(settings) : null;
+---
+
+<BaseLayout
+  title="Pszczyńska Akademia Sztuk Walki - Kung-Fu, Jiu-Jitsu, Systema"
+  description="Pszczyńska Akademia Sztuk Walki (PASW) - treningi kung-fu, jiu-jitsu, systema i walki wręcz dla dzieci, młodzieży i dorosłych. Licencjonowani trenerzy, tradycja od 1957 roku."
+  schema={schema}
+>
+  {homepage && (
+    <>
+      <Hero
+        title={homepage.heroTitle}
+        subtitle={homepage.heroSubtitle}
+        ctaPrimaryLabel={homepage.heroCtaPrimaryLabel}
+        ctaPrimaryUrl={homepage.heroCtaPrimaryUrl}
+        ctaSecondaryLabel={homepage.heroCtaSecondaryLabel}
+        ctaSecondaryUrl={homepage.heroCtaSecondaryUrl}
+      />
+
+      <USPs usps={homepage.usps} />
+
+      <Highlights highlights={homepage.highlights} />
+
+      <UpcomingEvents />
+    </>
+  )}
+</BaseLayout>

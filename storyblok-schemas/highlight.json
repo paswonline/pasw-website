@@ -1,0 +1,31 @@
+{
+  "name": "highlight",
+  "display_name": "Highlight",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_uuid": null,
+  "schema": {
+    "metricValue": {
+      "type": "text",
+      "pos": 0,
+      "required": true,
+      "translatable": false,
+      "description": "Wartość metryki (np. 67+, 500+, 2000+)"
+    },
+    "metricLabel": {
+      "type": "text",
+      "pos": 1,
+      "required": true,
+      "translatable": true,
+      "description": "Etykieta metryki (np. Lata działalności)"
+    },
+    "description": {
+      "type": "text",
+      "pos": 2,
+      "required": true,
+      "translatable": true,
+      "description": "Krótki opis"
+    }
+  }
+}
+

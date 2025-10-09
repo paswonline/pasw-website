@@ -1,0 +1,123 @@
+---
+/**
+ * Polityka Prywatności (Privacy Policy) Page - Placeholder
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Polityka Prywatności"
+  description="Polityka prywatności i ochrony danych osobowych Pszczyńskiej Akademii Sztuk Walki."
+>
+  <div class="section-padding bg-base">
+    <div class="container-custom max-w-4xl">
+      <h1 class="heading-lg font-display text-white mb-8">
+        Polityka Prywatności
+      </h1>
+
+      <div class="prose prose-invert prose-lg max-w-none space-y-6 text-gray-300">
+        <section>
+          <h2 class="text-3xl font-display text-white mb-4">1. Informacje ogólne</h2>
+          <p>
+            Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych przekazanych przez Użytkowników w związku z korzystaniem ze strony internetowej Pszczyńskiej Akademii Sztuk Walki.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-display text-white mb-4">2. Administrator danych</h2>
+          <p>
+            Administratorem danych osobowych zbieranych za pośrednictwem strony internetowej jest:
+          </p>
+          <div class="mt-4 p-6 bg-gray-800/50 rounded-lg border border-gold/20">
+            <p class="text-gold font-semibold text-lg mb-3">
+              FUNDACJA PSZCZYŃSKA AKADEMIA SZTUK WALKI IMIENIA JÓZEFA BRUDNEGO
+            </p>
+            <div class="space-y-2 text-sm">
+              <p><strong class="text-gold">KRS:</strong> 0000750171</p>
+              <p><strong class="text-gold">NIP:</strong> 6381835838</p>
+              <p><strong class="text-gold">REGON:</strong> 381638925</p>
+              <p><strong class="text-gold">Adres:</strong> Stefana Batorego 26, 43-200 Pszczyna, Polska</p>
+              <p><strong class="text-gold">Email:</strong> <a href="mailto:j.warchal@vp.pl" class="text-gold hover:text-white transition-colors">j.warchal@vp.pl</a></p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-display text-white mb-4">3. Rodzaje przetwarzanych danych</h2>
+          <p>
+            Administrator przetwarza następujące kategorie danych osobowych:
+          </p>
+          <ul>
+            <li>Dane kontaktowe (imię, nazwisko, adres e-mail, numer telefonu)</li>
+            <li>Dane techniczne (adres IP, typ przeglądarki, system operacyjny)</li>
+            <li>Dane dotyczące korzystania ze strony (cookies, statystyki)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-display text-white mb-4">4. Cel i podstawa prawna przetwarzania</h2>
+          <p>
+            Dane osobowe są przetwarzane w następujących celach:
+          </p>
+          <ul>
+            <li>Odpowiedzi na zapytania przesłane przez formularz kontaktowy (art. 6 ust. 1 lit. a RODO - zgoda)</li>
+            <li>Prowadzenie statystyk i analiz (art. 6 ust. 1 lit. f RODO - prawnie uzasadniony interes)</li>
+            <li>Wypełnienie obowiązków prawnych (art. 6 ust. 1 lit. c RODO)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-display text-white mb-4">5. Pliki cookies</h2>
+          <p>
+            Strona wykorzystuje pliki cookies w celu zapewnienia prawidłowego działania, personalizacji treści oraz prowadzenia statystyk. Użytkownik może w każdej chwili zmienić ustawienia dotyczące cookies w swojej przeglądarce.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-display text-white mb-4">6. Prawa użytkownika</h2>
+          <p>
+            Użytkownik ma prawo do:
+          </p>
+          <ul>
+            <li>Dostępu do swoich danych osobowych</li>
+            <li>Sprostowania danych</li>
+            <li>Usunięcia danych</li>
+            <li>Ograniczenia przetwarzania</li>
+            <li>Przenoszenia danych</li>
+            <li>Wniesienia sprzeciwu wobec przetwarzania</li>
+            <li>Cofnięcia zgody w dowolnym momencie</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-display text-white mb-4">7. Kontakt</h2>
+          <p>
+            W sprawach dotyczących ochrony danych osobowych prosimy o kontakt:
+          </p>
+          <div class="mt-4 p-4 bg-gray-800/50 rounded-lg border border-gold/20">
+            <p>
+              <strong class="text-gold">Email:</strong> 
+              <a href="mailto:j.warchal@vp.pl" class="text-gold hover:text-white transition-colors ml-2">
+                j.warchal@vp.pl
+              </a>
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-display text-white mb-4">8. Zmiany Polityki Prywatności</h2>
+          <p>
+            Administrator zastrzega sobie prawo do wprowadzania zmian w niniejszej Polityce Prywatności. Akttualna wersja jest zawsze dostępna pod tym adresem.
+          </p>
+        </section>
+
+        <div class="mt-12 p-6 bg-gray-800/50 border border-gold/20 rounded-lg">
+          <p class="text-gray-300">
+            <strong class="text-gold">Ostatnia aktualizacja:</strong> {new Date().toLocaleDateString('pl-PL', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
