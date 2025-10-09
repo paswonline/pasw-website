@@ -67,53 +67,13 @@ const historia = await getHistoria();
                 <div class="portrait-memorial-badge">★ In Memoriam ★</div>
                 <h3 class="founder-name">Wielki Mistrz<br/><strong>Józef Brudny</strong></h3>
                 <p class="founder-title">Założyciel i Twórca PASW</p>
-                <p class="founder-years">1957 - ∞</p>
+                <p class="founder-years">1942 - 2017</p>
                 <div class="founder-quote">
                   <div class="quote-mark">"</div>
                   <p class="quote-text">
                     Harmonia duszy, intelektu i ciała - fundament prawdziwego wojownika
                   </p>
                   <div class="quote-mark quote-mark-end">"</div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Main Content */}
-          <section class="historia-content-section">
-            <div class="historia-content">
-              <div class="historia-text">
-                <h2 class="historia-text-title">Początki Akademii</h2>
-                <div class="historia-paragraphs">
-                  <div class="historia-paragraph">
-                    <p class="historia-text-content">
-                      Historia Pszczyńskiej Akademii Sztuk Walki zaczyna się już w połowie lat 50-tych ubiegłego wieku, kiedy to w <strong class="historia-highlight">1957 roku Mistrz Józef Brudny</strong> wraz z bratem Janem, zakładają w Pszczynie na Śląsku pierwszą grupę treningową, która później staje się jednym z pierwszych i zarazem najstarszych ośrodków sztuk walki w Polsce.
-                    </p>
-                  </div>
-
-                  <div class="historia-paragraph">
-                    <p class="historia-text-content">
-                      Bracia dorastają w wielopokoleniowej śląskiej rodzinie, otoczeni miłością. Z drugiej strony dostrzegają brutalność otaczającego świata i zaczynają zastanawiać się w jaki sposób można obronić się przed agresją innych. Podczas osobistych dyskusji i obserwacji przyrody kształtują nowe rozwiązania techniczne, które najczęściej oparte są o <em class="historia-emphasis">naturalne reakcje odruchowe człowieka</em>.
-                    </p>
-                  </div>
-
-                  <div class="historia-paragraph">
-                    <p class="historia-text-content">
-                      Europejski system myślenia, tradycja rodzinna i regionalna mają szeroki wpływ na charakter metodyki stylu walki z Pszczyny. Trudności w zdobywaniu wiedzy w tym temacie potęguje od samego początku brak lektury fachowej na rynku krajowym. Rozpoczyna się nauka od podstaw – <strong class="historia-highlight">bez mistrzów</strong>.
-                    </p>
-                  </div>
-
-                  <div class="historia-paragraph">
-                    <p class="historia-text-content">
-                      Wokół braci Brudnych zbiera się grupa zapaleńców, którzy z odpowiedzi na pytania problemowe budują pewien model, styl. Już po kilku latach określono poważny zbiór technik walki: <span class="historia-techniques">pady, przewroty, trzymania, dźwignie, rzuty, podcięcia, uderzenia rękami i nogami</span>.
-                    </p>
-                  </div>
-
-                  <div class="historia-paragraph historia-paragraph-final">
-                    <p class="historia-text-content">
-                      W taki sposób zaczął się kształtować styl walki, który swym wymiarem przekraczał ramy fizycznego rozwoju umiejętności lecz dążył do wszechstronnego modelu rozwoju człowieka opartego na wartościach chrześcijańskich w myśl idei <em class="historia-philosophy">harmonii duszy, intelektu i ciała</em>.
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -155,6 +115,29 @@ const historia = await getHistoria();
               </div>
             </section>
           )}
+
+          {/* Main Content */}
+          <section class="historia-content-section">
+            <div class="historia-content">
+              <div class="historia-text">
+                <h2 class="historia-text-title">Pełna historia Akademii</h2>
+                <div class="historia-paragraphs">
+                  {historia.body.split('\n\n').map((paragraph, index) => {
+                    const formattedParagraph = paragraph
+                      .replace(/\*\*(.*?)\*\*/g, '<strong class="historia-highlight">$1</strong>')
+                      .replace(/\*(.*?)\*/g, '<em class="historia-emphasis">$1</em>')
+                      .replace(/"(.*?)"/g, '"$1"');
+                    
+                    return (
+                      <div class={`historia-paragraph ${index === historia.body.split('\n\n').length - 1 ? 'historia-paragraph-final' : ''}`}>
+                        <p class="historia-text-content" set:html={formattedParagraph}></p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </section>
         </>
       )}
     </div>
@@ -472,7 +455,7 @@ const historia = await getHistoria();
 
   .quote-mark-end {
     top: auto;
-    bottom: -1rem;
+    bottom: 1rem;
     left: auto;
     right: 0.5rem;
     transform: rotate(180deg);
