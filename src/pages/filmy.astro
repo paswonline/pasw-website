@@ -80,10 +80,10 @@ const videos = [
                       data-target-video={video.id}
                       aria-label="Przewiń do filmu"
                     >
-                      <span class="scroll-btn-text">Zobacz film</span>
+                      <span class="scroll-btn-text">Przewiń do filmu</span>
                       <div class="scroll-arrow">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
                         </svg>
                       </div>
                     </button>
@@ -287,7 +287,7 @@ const videos = [
   }
 
   .scroll-to-video-btn:hover .scroll-arrow {
-    transform: translateY(2px);
+    transform: translateY(-2px);
   }
 
   .scroll-btn-text {
