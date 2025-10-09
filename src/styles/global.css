@@ -116,10 +116,10 @@
       }
 
       .btn-primary {
-        background: linear-gradient(135deg, #E53D35 0%, #FF6B35 50%, #FFD700 100%);
-        color: white;
-        box-shadow: 0 6px 20px rgba(229, 57, 53, 0.4), 0 0 30px rgba(255, 215, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 50%, #F0F0F0 100%);
+        color: var(--color-text-dark);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.4);
         position: relative;
         overflow: hidden;
       }
@@ -140,9 +140,9 @@
       }
 
       .btn-primary:hover:not(:disabled) {
-        background: linear-gradient(135deg, #C62828 0%, #FF5722 50%, #FFC107 100%);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(229, 57, 53, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);
+        background: linear-gradient(135deg, #E8E8E8 0%, #D8D8D8 50%, #E0E0E0 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 0 25px rgba(255, 255, 255, 0.4);
       }
 
       .btn-secondary {
