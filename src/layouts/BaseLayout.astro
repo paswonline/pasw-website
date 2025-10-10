@@ -58,7 +58,7 @@ const { title, description, image, canonical, type, schema } = Astro.props;
       id="back-to-top"
       type="button"
       aria-label="Wróć na górę strony"
-      class="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-red-600 focus:outline-primary z-30"
+      class="fixed bottom-8 right-8 w-12 h-12 text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 back-to-top-btn focus:outline-primary z-30"
       data-back-to-top
     >
       <svg
@@ -139,8 +139,20 @@ const { title, description, image, canonical, type, schema } = Astro.props;
             behavior: 'smooth',
           });
         });
-      }
-    </script>
+  }
+</script>
+
+<style>
+  .back-to-top-btn {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+  }
+
+  .back-to-top-btn:hover {
+    background: linear-gradient(135deg, #C62828 0%, #FFD700 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(229, 57, 53, 0.4);
+  }
+</style>
   </body>
 </html>
 

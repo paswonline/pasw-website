@@ -21,6 +21,26 @@
   --font-display: 'Bebas Neue', 'Inter', sans-serif;
 }
 
+/* Gradient text utilities */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Menu hover and active states */
+.nav-link-active {
+  color: #FF8C42 !important;
+}
+
+.nav-link-hover:hover {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 @layer base {
   @font-face {
     font-family: 'Inter';
@@ -116,10 +136,10 @@
       }
 
       .btn-primary {
-        background: linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 50%, #F0F0F0 100%);
-        color: var(--color-text-dark);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.4);
+        background: linear-gradient(135deg, #F0F2F5 0%, #D1D9E6 50%, #E8EDF5 100%) !important;
+        color: var(--color-text-dark) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 0 20px rgba(255, 255, 255, 0.5) !important;
+        border: 1px solid rgba(255, 255, 255, 0.6) !important;
         position: relative;
         overflow: hidden;
       }
@@ -140,9 +160,10 @@
       }
 
       .btn-primary:hover:not(:disabled) {
-        background: linear-gradient(135deg, #E8E8E8 0%, #D8D8D8 50%, #E0E0E0 100%);
+        background: linear-gradient(135deg, #E8EDF5 0%, #C4D1E0 50%, #DDE7F0 100%) !important;
+        color: var(--color-text-dark) !important;
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 0 25px rgba(255, 255, 255, 0.4);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 0 25px rgba(255, 255, 255, 0.6) !important;
       }
 
       .btn-secondary {
@@ -206,11 +227,11 @@
       }
 
       .btn-news:hover:not(:disabled) {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-color: var(--color-primary);
-        color: var(--color-primary);
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+        border-color: transparent;
+        color: white;
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(229, 57, 53, 0.2);
+        box-shadow: 0 8px 20px rgba(229, 57, 53, 0.3);
       }
 
   .container-custom {

@@ -49,7 +49,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           
           <div class="ustawa-changes-grid">
             <div class="ustawa-change-item">
-              <div class="ustawa-change-icon">📋</div>
+              <div class="ustawa-change-icon">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
               <h3 class="ustawa-change-title">Obowiązek wdrożenia Standardów Ochrony Małoletnich (SOM)</h3>
               <p class="ustawa-change-text">
                 Instytucje edukacyjne, opiekuńcze, medyczne, sportowe, rekreacyjne, religijne czy związane z działalnością dla dzieci i młodzieży obowiązane są do przyjęcia Procedur i Polityk Ochrony, dostosowanych do specyfiki ich działalności.
@@ -57,7 +61,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
 
             <div class="ustawa-change-item">
-              <div class="ustawa-change-icon">🔍</div>
+              <div class="ustawa-change-icon">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
               <h3 class="ustawa-change-title">Bezpieczna rekrutacja</h3>
               <p class="ustawa-change-text">
                 Każda osoba przyjmowana do pracy lub kontaktu z dziećmi musi zostać sprawdzona w:
@@ -94,7 +102,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
 
             <div class="ustawa-change-item">
-              <div class="ustawa-change-icon">⚠️</div>
+              <div class="ustawa-change-icon">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+              </div>
               <h3 class="ustawa-change-title">Sankcje i konsekwencje</h3>
               <p class="ustawa-change-text">
                 Podmioty, które nie wprowadzą wymaganych standardów w terminie lub w odpowiednim zakresie, mogą być ukarane grzywną do 250 zł lub naganną. W przypadku kolejnego naruszenia – grzywna co najmniej 1000 zł.
@@ -397,22 +409,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .ustawa-change-item {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 1rem;
     padding: 2rem;
-    border-left: 4px solid var(--color-gold);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 2px solid;
+    border-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%) 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .ustawa-change-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(229, 57, 53, 0.2);
   }
 
   .ustawa-change-icon {
-    font-size: 2rem;
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 1rem;
+    color: white;
+    flex-shrink: 0;
   }
 
   .ustawa-change-title {
@@ -448,7 +469,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     content: '✓';
     position: absolute;
     left: 0;
-    color: var(--color-gold);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-weight: bold;
   }
 
@@ -467,16 +491,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: flex;
     gap: 1.5rem;
     align-items: flex-start;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 1rem;
     padding: 2rem;
-    border-left: 4px solid var(--color-primary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
+    border: 2px solid;
+    border-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%) 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .ustawa-step:hover {
-    transform: translateX(4px);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(229, 57, 53, 0.2);
   }
 
   .ustawa-step-number {
@@ -524,8 +550,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .ustawa-faq-question {
     width: 100%;
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid;
+    border-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%) 1;
+    border-radius: 0.5rem;
     text-align: left;
     cursor: pointer;
     display: flex;
@@ -534,11 +562,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--color-text-dark);
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   .ustawa-faq-question:hover {
-    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.15);
   }
 
   .ustawa-faq-icon {
@@ -555,7 +584,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    background: rgba(248, 248, 248, 0.8);
+    background: rgba(255, 255, 255, 0.9);
+    border-top: 1px solid rgba(229, 57, 53, 0.1);
   }
 
   .ustawa-faq-item.active .ustawa-faq-answer {
@@ -570,18 +600,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .ustawa-note {
-    background: rgba(212, 175, 55, 0.1);
-    border-left: 4px solid var(--color-gold);
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid;
+    border-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%) 1;
     border-radius: 0.5rem;
     padding: 1.5rem;
     margin-top: 2rem;
     color: var(--color-text-dark);
     line-height: 1.6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
   .ustawa-contact-card {
-    background: linear-gradient(135deg, rgba(229, 57, 53, 0.05) 0%, rgba(212, 175, 55, 0.05) 100%);
-    border-color: rgba(229, 57, 53, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid;
+    border-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%) 1;
   }
 
   .ustawa-contact-info {

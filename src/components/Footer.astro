@@ -60,19 +60,19 @@ const organizationData = {
             </span>
           </div>
           <div class="footer-data-item">
-            <span class="footer-data-label">KRS:</span>
+            <span class="footer-data-label text-gradient">KRS:</span>
             <span class="footer-data-value">{organizationData.krs}</span>
           </div>
           <div class="footer-data-item">
-            <span class="footer-data-label">NIP:</span>
+            <span class="footer-data-label text-gradient">NIP:</span>
             <span class="footer-data-value">{organizationData.nip}</span>
           </div>
           <div class="footer-data-item">
-            <span class="footer-data-label">REGON:</span>
+            <span class="footer-data-label text-gradient">REGON:</span>
             <span class="footer-data-value">{organizationData.regon}</span>
           </div>
           <div class="footer-data-item">
-            <span class="footer-data-label">Adres:</span>
+            <span class="footer-data-label text-gradient">Adres:</span>
             <span class="footer-data-value">
               {organizationData.address}<br />
               {organizationData.postalCode} {organizationData.city}<br />
@@ -80,7 +80,7 @@ const organizationData = {
             </span>
           </div>
           <div class="footer-data-item">
-            <span class="footer-data-label">Email:</span>
+            <span class="footer-data-label text-gradient">Email:</span>
             <a 
               href={`mailto:${organizationData.email}`}
               class="footer-link footer-email-link"
@@ -110,13 +110,22 @@ const organizationData = {
     </div>
 
     <!-- Copyright -->
-    <div class="mt-12 pt-8 text-sm text-center footer-copyright">
-      <p>
-        &copy; {currentYear} {organizationData.fullName}
-      </p>
-      <p class="mt-2 text-xs opacity-75">
-        Wszelkie prawa zastrzeżone.
-      </p>
+    <div class="mt-12 pt-8 text-sm footer-copyright">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="text-left">
+          <p>
+            &copy; {currentYear} {organizationData.fullName}
+          </p>
+          <p class="mt-1 text-xs opacity-75">
+            Wszelkie prawa zastrzeżone.
+          </p>
+        </div>
+        <div class="text-right">
+          <p>
+            Created by <a href="http://drozniak.pl/" target="_blank" rel="noopener noreferrer" class="text-gradient font-bold hover:opacity-80 transition-opacity duration-300">MONLINE - Stanisław Drożniak</a>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </footer>

@@ -22,7 +22,7 @@ const { highlights } = Astro.props;
         >
           {/* Metric Value */}
           <div 
-            class="text-5xl md:text-6xl lg:text-7xl font-display text-primary mb-4"
+            class="text-5xl md:text-6xl lg:text-7xl font-display mb-4 highlight-number-gradient"
             data-counter
             data-target={highlight.metricValue}
           >
@@ -112,4 +112,13 @@ const { highlights } = Astro.props;
     initCounters();
   }
 </script>
+
+<style>
+  .highlight-number-gradient {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>
 

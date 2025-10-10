@@ -25,8 +25,8 @@ const iconPaths: Record<string, string> = {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
       {usps.map((usp, index) => (
         <div 
-          class="group text-center p-8 rounded-2xl transition-all duration-300"
-          style="background-color: var(--color-base); border: 1px solid var(--color-gold);"
+          class="group text-center p-8 rounded-2xl transition-all duration-300 usp-card"
+          style="background-color: var(--color-base);"
           data-animate-on-scroll
         >
           {/* Icon */}
@@ -62,4 +62,18 @@ const iconPaths: Record<string, string> = {
     </div>
   </div>
 </section>
+
+<style>
+  .usp-card {
+    position: relative;
+    transition: all 0.3s ease;
+    border: 2px solid;
+    border-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%) 1;
+  }
+
+  .usp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(229, 57, 53, 0.4);
+  }
+</style>
 

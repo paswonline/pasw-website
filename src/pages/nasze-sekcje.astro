@@ -23,7 +23,7 @@ const sortedLocations = kontakt?.locations?.sort((a, b) =>
         <>
           {/* Page Header */}
           <div class="text-center mb-12 md:mb-16">
-            <h1 class="heading-lg font-display text-white mb-4">
+            <h1 class="heading-lg font-display text-gradient mb-4">
               Nasze Sekcje
             </h1>
             <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
@@ -59,7 +59,7 @@ const sortedLocations = kontakt?.locations?.sort((a, b) =>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="locations-grid">
               {sortedLocations.map((location) => (
                 <div 
-                  class="location-card bg-gray-900 border border-gray-800 rounded-lg p-6 hover:border-primary transition-colors"
+                  class="location-card bg-gray-900 border border-gray-800 rounded-lg p-6 location-card-hover transition-all duration-300"
                   data-city={location.city.toLowerCase()}
                   data-address={location.address.toLowerCase()}
                 >
@@ -71,10 +71,10 @@ const sortedLocations = kontakt?.locations?.sort((a, b) =>
                     
                     {location.schedule && (
                       <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 text-gradient flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
-                        <span class="text-gold font-medium">{location.schedule}</span>
+                        <span class="text-gradient font-medium">{location.schedule}</span>
                       </div>
                     )}
                     
@@ -83,7 +83,7 @@ const sortedLocations = kontakt?.locations?.sort((a, b) =>
                         {location.groups.map((group) => (
                           <div class="bg-gray-800/50 rounded p-2">
                             <div class="font-medium text-white text-xs mb-1">{group.name}</div>
-                            <div class="text-gold text-xs">{group.time}</div>
+                            <div class="text-gradient text-xs">{group.time}</div>
                           </div>
                         ))}
                       </div>
@@ -91,12 +91,12 @@ const sortedLocations = kontakt?.locations?.sort((a, b) =>
                     
                     {location.phone && (
                       <div class="flex items-center gap-2 pt-2 border-t border-gray-700">
-                        <svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #FF8C42 !important;">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
                         <a 
                           href={`tel:${location.phone.replace(/\s/g, '')}`}
-                          class="hover:text-primary transition-colors focus:outline-primary"
+                          class="text-white font-bold hover:text-gradient transition-all duration-300 focus:outline-primary"
                         >
                           {location.phone}
                         </a>
@@ -271,6 +271,17 @@ const sortedLocations = kontakt?.locations?.sort((a, b) =>
     initLocationSearch();
   }
 </script>
+
+<style>
+  .location-card-hover:hover {
+    border-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%) 1;
+    border-width: 2px;
+    border-style: solid;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(229, 57, 53, 0.2);
+  }
+</style>
 
 <style>
   .location-card {
