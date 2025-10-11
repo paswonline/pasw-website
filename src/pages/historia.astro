@@ -707,6 +707,62 @@ const historia = await getHistoria();
       font-size: 0.9rem;
     }
   }
+
+  /* Typography improvements - prevent short words from staying alone at line end */
+  .historia-title,
+  .historia-subtitle,
+  .founder-name,
+  .founder-title,
+  .historia-text-title,
+  .timeline-card-title,
+  .historia-text-content,
+  .historia-paragraphs p {
+    /* Prevent short words from breaking */
+    word-spacing: 0.1em;
+    orphans: 2;
+    widows: 2;
+  }
+
+  /* Specific rules for short words that shouldn't break */
+  .historia-title::after,
+  .historia-subtitle::after,
+  .founder-name::after,
+  .founder-title::after,
+  .historia-text-title::after,
+  .timeline-card-title::after {
+    content: '';
+    white-space: nowrap;
+  }
+
+  /* Mobile-specific typography improvements */
+  @media (max-width: 768px) {
+    .historia-title,
+    .historia-subtitle,
+    .founder-name,
+    .founder-title,
+    .historia-text-title,
+    .timeline-card-title {
+      /* Better line breaking on mobile */
+      word-break: keep-all;
+      hyphens: none;
+      -webkit-hyphens: none;
+      -ms-hyphens: none;
+    }
+
+    .historia-text-content,
+    .historia-paragraphs p {
+      /* Prevent awkward line breaks in paragraphs */
+      text-align: justify;
+      word-spacing: 0.05em;
+      line-height: 1.6;
+    }
+  }
+
+  /* Add non-breaking spaces after short words using CSS content replacement */
+  .historia-text-content::before {
+    content: '';
+    display: inline;
+  }
 </style>
 
 <script>
@@ -733,6 +789,43 @@ const historia = await getHistoria();
     document.addEventListener('DOMContentLoaded', initScrollAnimations);
   } else {
     initScrollAnimations();
+  }
+
+  // Function to prevent short words from staying alone at line end
+  function fixShortWords() {
+    const shortWords = ['i', 'a', 'w', 'z', 'na', 'do', 'od', 'po', 'za', 'przy', 'o', 'u', 'dr', 'mgr', 'prof', 'św', 'śp'];
+    const selectors = [
+      '.historia-title',
+      '.historia-subtitle', 
+      '.founder-name',
+      '.founder-title',
+      '.historia-text-title',
+      '.timeline-card-title',
+      '.historia-text-content',
+      '.historia-paragraphs p'
+    ];
+
+    selectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(element => {
+        let html = element.innerHTML;
+        
+        shortWords.forEach(word => {
+          // Create regex to match the word followed by a space
+          const regex = new RegExp(`\\b${word}\\s+`, 'gi');
+          html = html.replace(regex, `${word}&nbsp;`);
+        });
+        
+        element.innerHTML = html;
+      });
+    });
+  }
+
+  // Run the function when DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fixShortWords);
+  } else {
+    fixShortWords();
   }
 </script>
 
