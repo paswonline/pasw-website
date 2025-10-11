@@ -527,10 +527,16 @@ const historia = await getHistoria();
   }
 
   .historia-text-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 0.95rem;
+    line-height: 1.7;
     color: var(--color-text-dark);
     margin: 0;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    white-space: normal;
   }
 
   /* Unified accent styles - all highlights look the same for professional consistency */
@@ -708,19 +714,32 @@ const historia = await getHistoria();
     }
   }
 
-  /* Typography improvements - prevent short words from staying alone at line end */
+  /* Typography improvements - natural text flow */
   .historia-title,
   .historia-subtitle,
   .founder-name,
   .founder-title,
   .historia-text-title,
-  .timeline-card-title,
-  .historia-text-content,
-  .historia-paragraphs p {
-    /* Prevent short words from breaking */
+  .timeline-card-title {
+    /* Headers - prevent short words from breaking */
     word-spacing: normal;
     orphans: 2;
     widows: 2;
+  }
+
+  .historia-text-content,
+  .historia-paragraphs p {
+    /* Paragraphs - natural flow with optimal width */
+    text-align: left;
+    word-spacing: normal;
+    orphans: 2;
+    widows: 2;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* Specific rules for short words that shouldn't break */
@@ -736,28 +755,23 @@ const historia = await getHistoria();
 
   /* Mobile-specific typography improvements */
   @media (max-width: 768px) {
-    .historia-title,
-    .historia-subtitle,
-    .founder-name,
-    .founder-title,
-    .historia-text-title,
-    .timeline-card-title {
-      /* Better line breaking on mobile */
-      word-break: keep-all;
-      hyphens: auto;
-      -webkit-hyphens: auto;
-      -ms-hyphens: auto;
-    }
-
     .historia-text-content,
     .historia-paragraphs p {
-      /* Natural text flow on mobile */
-      text-align: left;
-      word-spacing: normal;
+      /* Mobile - better readability without word breaking */
+      max-width: none;
       line-height: 1.6;
-      hyphens: auto;
-      -webkit-hyphens: auto;
-      -ms-hyphens: auto;
+      margin-left: 0;
+      margin-right: 0;
+      font-size: 0.9rem;
+      word-break: normal;
+      overflow-wrap: normal;
+      hyphens: none;
+      -webkit-hyphens: none;
+      -ms-hyphens: none;
+    }
+
+    .historia-paragraphs {
+      gap: 1.5rem;
     }
   }
 
@@ -796,31 +810,50 @@ const historia = await getHistoria();
 
   // Function to prevent short words from staying alone at line end
   function fixShortWords() {
-    const shortWords = ['i', 'a', 'w', 'z', 'na', 'do', 'od', 'po', 'za', 'przy', 'o', 'u', 'dr', 'mgr', 'prof', 'św', 'śp'];
-    const selectors = [
+    // Comprehensive list of short words that shouldn't be alone
+    const allShortWords = ['i', 'a', 'w', 'z', 'o', 'u', 'na', 'do', 'od', 'po', 'za', 'przy', 'dr', 'mgr', 'prof', 'św', 'śp'];
+    const criticalShortWords = ['i', 'a', 'w', 'z', 'o', 'u', 'na', 'do', 'od', 'po', 'za'];
+    
+    const titleSelectors = [
       '.historia-title',
       '.historia-subtitle', 
       '.founder-name',
       '.founder-title',
       '.historia-text-title',
-      '.timeline-card-title',
-      '.historia-text-content',
-      '.historia-paragraphs p'
+      '.timeline-card-title'
     ];
 
-    selectors.forEach(selector => {
+    // Apply to titles (more aggressive)
+    titleSelectors.forEach(selector => {
       const elements = document.querySelectorAll(selector);
       elements.forEach(element => {
         let html = element.innerHTML;
         
-        shortWords.forEach(word => {
-          // Create regex to match the word followed by a space
+        allShortWords.forEach(word => {
           const regex = new RegExp(`\\b${word}\\s+`, 'gi');
           html = html.replace(regex, `${word}&nbsp;`);
         });
         
         element.innerHTML = html;
       });
+    });
+
+    // For paragraphs, apply to critical words
+    const paragraphElements = document.querySelectorAll('.historia-text-content, .historia-paragraphs p');
+    paragraphElements.forEach(element => {
+      let html = element.innerHTML;
+      
+      // Apply to critical short words for paragraphs
+      criticalShortWords.forEach(word => {
+        const regex = new RegExp(`\\b${word}\\s+`, 'gi');
+        html = html.replace(regex, `${word}&nbsp;`);
+      });
+      
+      // Also handle titles and degrees
+      const titlesRegex = /\b(dr|mgr|prof|św|śp)\s+/gi;
+      html = html.replace(titlesRegex, '$1&nbsp;');
+      
+      element.innerHTML = html;
     });
   }
 
