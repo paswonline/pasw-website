@@ -718,7 +718,7 @@ const historia = await getHistoria();
   .historia-text-content,
   .historia-paragraphs p {
     /* Prevent short words from breaking */
-    word-spacing: 0.1em;
+    word-spacing: normal;
     orphans: 2;
     widows: 2;
   }
@@ -744,17 +744,20 @@ const historia = await getHistoria();
     .timeline-card-title {
       /* Better line breaking on mobile */
       word-break: keep-all;
-      hyphens: none;
-      -webkit-hyphens: none;
-      -ms-hyphens: none;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
     }
 
     .historia-text-content,
     .historia-paragraphs p {
-      /* Prevent awkward line breaks in paragraphs */
-      text-align: justify;
-      word-spacing: 0.05em;
+      /* Natural text flow on mobile */
+      text-align: left;
+      word-spacing: normal;
       line-height: 1.6;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
     }
   }
 
