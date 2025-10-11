@@ -81,7 +81,7 @@ const {
         {ctaSecondaryLabel && ctaSecondaryUrl && (
           <a
             href={ctaSecondaryUrl}
-            class="btn btn-secondary text-lg px-8 py-4 w-full sm:w-auto"
+            class="btn btn-secondary hero-secondary-btn text-lg px-8 py-4 w-full sm:w-auto"
           >
             {ctaSecondaryLabel}
           </a>
@@ -519,6 +519,31 @@ const {
         color: white !important;
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(229, 57, 53, 0.4), 0 0 25px rgba(255, 140, 66, 0.3) !important;
+      }
+
+      /* Hero secondary button - orange gradient hover */
+      .hero-secondary-btn:hover:not(:disabled) {
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%) !important;
+        color: white !important;
+        border-color: var(--color-primary) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(229, 57, 53, 0.4) !important;
+      }
+
+      /* Mobile responsive button sizing */
+      @media (max-width: 640px) {
+        .hero-primary-btn {
+          padding: 0.75rem 1.5rem !important;
+          font-size: 0.875rem !important;
+        }
+      }
+
+      /* Mobile responsive subtitle sizing */
+      @media (max-width: 640px) {
+        .hero-subtitle-gradient {
+          font-size: 1.375rem !important;
+          line-height: 1.4 !important;
+        }
       }
     </style>
 
