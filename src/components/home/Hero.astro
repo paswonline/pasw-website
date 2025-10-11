@@ -23,8 +23,8 @@ const {
 ---
 
 <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-base">
-  <!-- Background Image -->
-  <div class="absolute inset-0 hero-bg-image"></div>
+  <!-- Textured Background -->
+  <div class="absolute inset-0 hero-textured-bg"></div>
   
   <!-- Dark overlay for text readability -->
   <div class="absolute inset-0 bg-black/60"></div>
@@ -73,7 +73,7 @@ const {
       >
         <a
           href={ctaPrimaryUrl}
-          class="btn btn-primary text-lg px-8 py-4 w-full sm:w-auto"
+          class="btn btn-primary hero-primary-btn text-lg px-8 py-4 w-full sm:w-auto"
         >
           {ctaPrimaryLabel}
         </a>
@@ -277,12 +277,66 @@ const {
     }
   }
 
-  .hero-bg-image {
-    background-image: url('/images/PASW_treningi-4.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.4;
+  .hero-textured-bg {
+    background: 
+      linear-gradient(135deg, #404040 0%, #555555 25%, #404040 50%, #353535 75%, #404040 100%),
+      radial-gradient(circle at 25% 25%, #606060 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, #505050 0%, transparent 50%);
+    opacity: 1;
+    position: relative;
+  }
+
+  .hero-textured-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.10) 0%, transparent 45%),
+      radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 55%),
+      radial-gradient(circle at 90% 60%, rgba(255, 255, 255, 0.06) 0%, transparent 60%),
+      radial-gradient(circle at 10% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 35%);
+    background-size: 120px 120px, 180px 180px, 90px 90px, 150px 150px, 100px 100px, 80px 80px;
+    animation: grain-move 25s linear infinite;
+    opacity: 1;
+  }
+
+  .hero-textured-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(90deg, transparent 96%, rgba(255, 255, 255, 0.08) 98%, transparent 100%),
+      linear-gradient(0deg, transparent 96%, rgba(255, 255, 255, 0.06) 98%, transparent 100%),
+      linear-gradient(45deg, transparent 98%, rgba(255, 255, 255, 0.04) 100%);
+    background-size: 40px 40px, 40px 40px, 60px 60px;
+    animation: grain-lines 30s linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes grain-move {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -10%); }
+    20% { transform: translate(-15%, 5%); }
+    30% { transform: translate(7%, -25%); }
+    40% { transform: translate(-5%, 25%); }
+    50% { transform: translate(-15%, 10%); }
+    60% { transform: translate(15%, 0%); }
+    70% { transform: translate(0%, 15%); }
+    80% { transform: translate(3%, 35%); }
+    90% { transform: translate(-10%, 10%); }
+  }
+
+  @keyframes grain-lines {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(25px, 25px); }
   }
 
   /* Ensure text remains readable */
@@ -450,6 +504,21 @@ const {
           width: 18px;
           height: 18px;
         }
+      }
+
+      /* Hero primary button - orange gradient override */
+      .hero-primary-btn {
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%) !important;
+        color: white !important;
+        border: 2px solid transparent !important;
+        box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3), 0 0 20px rgba(255, 140, 66, 0.2) !important;
+      }
+
+      .hero-primary-btn:hover:not(:disabled) {
+        background: linear-gradient(135deg, #C62828 0%, #FFD700 100%) !important;
+        color: white !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(229, 57, 53, 0.4), 0 0 25px rgba(255, 140, 66, 0.3) !important;
       }
     </style>
 

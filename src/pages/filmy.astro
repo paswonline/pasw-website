@@ -103,7 +103,7 @@ const videos = [
             Zobacz jak Ty możesz zostać częścią naszej Akademii. Sprawdź nasze sekcje i rozpocznij swoją przygodę ze sztukami walki!
           </p>
           <div class="filmy-cta-buttons">
-            <a href="/nasze-sekcje" class="btn btn-primary">
+            <a href="/nasze-sekcje" class="btn btn-primary" style="background: #FF8C42 !important; color: white !important; border: 2px solid #FF8C42 !important; box-shadow: 0 4px 12px rgba(255, 140, 66, 0.4) !important;">
               Nasze Sekcje
             </a>
             <a href="/historia" class="btn btn-outline">
@@ -328,6 +328,21 @@ const videos = [
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .filmy-cta-buttons .btn-primary {
+    background: var(--color-primary) !important;
+    color: white !important;
+    border: 2px solid var(--color-primary) !important;
+    box-shadow: 0 4px 12px rgba(229, 57, 53, 0.4) !important;
+  }
+
+  .filmy-cta-buttons .btn-primary:hover:not(:disabled) {
+    background: #C62828 !important;
+    color: white !important;
+    border-color: #C62828 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.6) !important;
   }
 
   @media (max-width: 768px) {
