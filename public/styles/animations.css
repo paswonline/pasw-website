@@ -1,0 +1,205 @@
+/**
+ * Deferred animations CSS - loaded after LCP for optimal performance
+ * Contains only motion-related styles (keyframes, animations, transitions)
+ * Static visual styles remain in global.css and component styles
+ */
+
+/* Global safety rule for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Hero Orbs Animation */
+.hero-orb {
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.hero-orb-1 {
+  animation: float1 15s infinite;
+}
+
+.hero-orb-2 {
+  animation: float2 18s infinite;
+}
+
+.hero-orb-3 {
+  animation: float3 20s infinite;
+}
+
+@keyframes float1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, 50px) scale(1.1);
+  }
+}
+
+@keyframes float2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-40px, -30px) scale(1.15);
+  }
+}
+
+@keyframes float3 {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(calc(-50% + 20px), calc(-50% - 40px)) scale(1.2);
+  }
+}
+
+/* Floating Particles Animation */
+.particle {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.particle-1 {
+  animation: particleFloat 12s infinite;
+}
+
+.particle-2 {
+  animation: particleFloat 15s infinite;
+  animation-delay: -2s;
+}
+
+.particle-3 {
+  animation: particleFloat 18s infinite;
+  animation-delay: -4s;
+}
+
+.particle-4 {
+  animation: particleFloat 14s infinite;
+  animation-delay: -6s;
+}
+
+.particle-5 {
+  animation: particleFloat 16s infinite;
+  animation-delay: -8s;
+}
+
+.particle-6 {
+  animation: particleFloat 13s infinite;
+  animation-delay: -10s;
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translateY(-30px) translateX(15px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-50px) translateX(-10px);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translateY(-30px) translateX(20px);
+    opacity: 0.5;
+  }
+}
+
+/* Hero Textured Background Animation */
+.hero-textured-bg::before {
+  animation: grain-move 25s linear infinite;
+}
+
+.hero-textured-bg::after {
+  animation: grain-lines 30s linear infinite;
+}
+
+@keyframes grain-move {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+@keyframes grain-lines {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(25px, 25px); }
+}
+
+/* Fade-in Animation */
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide-up Animation */
+[data-animate-on-scroll] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.animate-slide-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Glass Badge Float Animation */
+.glass-badge {
+  animation: badgeFloat 3s ease-in-out infinite;
+}
+
+@keyframes badgeFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Badge Pulse Animation */
+@keyframes badgePulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 12px rgba(229, 57, 53, 0.3),
+      0 0 20px rgba(212, 175, 55, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 6px 16px rgba(229, 57, 53, 0.4),
+      0 0 30px rgba(212, 175, 55, 0.3);
+  }
+}
+
+/* Highlight Animation */
+@keyframes highlight {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+

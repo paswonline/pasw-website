@@ -123,16 +123,7 @@ const sortedEvents = events.sort((a, b) =>
     box-shadow: 
       0 4px 12px rgba(229, 57, 53, 0.3),
       0 0 20px rgba(212, 175, 55, 0.2);
-    animation: badgeFloat 3s ease-in-out infinite;
-  }
-
-  @keyframes badgeFloat {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-4px);
-    }
+    /* Animation badgeFloat moved to animations.css */
   }
 
   .aktualnosci-title {
@@ -193,14 +184,11 @@ const sortedEvents = events.sort((a, b) =>
   }
 
   .event-item-wrapper {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease;
+    /* Animation styles moved to animations.css - uses data-animate-on-scroll */
   }
 
   .event-item-wrapper.animate-slide-up {
-    opacity: 1;
-    transform: translateY(0);
+    /* Animation class defined in animations.css */
   }
 
   /* Empty State */

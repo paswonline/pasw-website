@@ -86,8 +86,8 @@ const { title, description, image, canonical, type, schema } = Astro.props;
       </svg>
     </button>
 
+    <!-- YouTube thumbnail handling - Global functions (critical, keep inline) -->
     <script>
-      // YouTube thumbnail handling - Global functions
       window.handleThumbnailError = function(img) {
         const thumbnailUrls = JSON.parse(img.dataset.thumbnailUrls || '[]');
         const currentIndex = parseInt(img.dataset.thumbnailIndex || '0');
@@ -95,13 +95,11 @@ const { title, description, image, canonical, type, schema } = Astro.props;
         console.log(`[YouTube] Thumbnail error: ${img.src}, trying next...`);
         
         if (currentIndex < thumbnailUrls.length - 1) {
-          // Try next thumbnail URL
           const nextIndex = currentIndex + 1;
           img.src = thumbnailUrls[nextIndex];
           img.dataset.thumbnailIndex = nextIndex.toString();
           console.log(`[YouTube] Trying thumbnail ${nextIndex + 1}/${thumbnailUrls.length}: ${img.src}`);
         } else {
-          // All thumbnails failed, use simple fallback
           console.log('[YouTube] All thumbnails failed, using fallback');
           img.style.display = 'none';
           img.parentElement.innerHTML = `
@@ -122,7 +120,6 @@ const { title, description, image, canonical, type, schema } = Astro.props;
       window.checkAndReplaceGrayThumbnail = function(img) {
         console.log(`[YouTube] Image loaded: ${img.src}, size: ${img.naturalWidth}x${img.naturalHeight}`);
         
-        // Only reject very small images (120x90) which are definitely placeholders
         if (img.naturalWidth === 120 && img.naturalHeight === 90) {
           console.log('[YouTube] Detected 120x90 placeholder, trying next...');
           window.handleThumbnailError(img);
@@ -131,8 +128,8 @@ const { title, description, image, canonical, type, schema } = Astro.props;
         }
       };
 
-      // Back to top button
-      const backToTopButton = document.querySelector('[data-back-to-top]') as HTMLButtonElement;
+      // Back to top button (critical UX, keep inline)
+      const backToTopButton = document.querySelector('[data-back-to-top]');
 
       if (backToTopButton) {
         function toggleBackToTop() {
@@ -151,8 +148,46 @@ const { title, description, image, canonical, type, schema } = Astro.props;
             behavior: 'smooth',
           });
         });
-  }
-</script>
+      }
+    </script>
+
+    <!-- Defer non-critical animations and header effects -->
+    <script type="module">
+      (() => {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobile = window.innerWidth < 768;
+
+        // Skip heavy motion for reduced motion users; on phones skip particles/orbs entirely
+        if (prefersReduced) return;
+
+        const loadAnimations = () => {
+          // Load animations stylesheet
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = '/styles/animations.css';
+          document.head.appendChild(link);
+
+          // Initialize header effects and counters AFTER styles are present
+          import('/scripts/header-effects.js').then(m => {
+            if (m.initHeaderEffects) {
+              m.initHeaderEffects({ enableParticles: !isMobile });
+            }
+          }).catch(err => console.warn('Failed to load header-effects:', err));
+
+          import('/scripts/counters.js').then(m => {
+            if (m.initCounters) {
+              m.initCounters();
+            }
+          }).catch(err => console.warn('Failed to load counters:', err));
+        };
+
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadAnimations, { timeout: 2500 });
+        } else {
+          window.addEventListener('load', loadAnimations, { once: true });
+        }
+      })();
+    </script>
 
 <style>
   .back-to-top-btn {
