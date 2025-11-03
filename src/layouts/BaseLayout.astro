@@ -166,7 +166,7 @@ const { title, description, image, canonical, type, schema } = Astro.props;
       }
     </script>
 
-    <!-- Defer non-critical animations and header effects -->
+    <!-- Defer non-critical animations and header effects - load after LCP/interaction -->
     <script type="module">
       (() => {
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -175,11 +175,18 @@ const { title, description, image, canonical, type, schema } = Astro.props;
         // Skip heavy motion for reduced motion users; on phones skip particles/orbs entirely
         if (prefersReduced) return;
 
+        let animationsLoaded = false;
+
         const loadAnimations = () => {
-          // Load animations stylesheet
+          if (animationsLoaded) return;
+          animationsLoaded = true;
+
+          // Load animations stylesheet asynchronously
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = '/styles/animations.css';
+          link.media = 'print';
+          link.onload = () => { link.media = 'all'; };
           document.head.appendChild(link);
 
           // Initialize header effects and counters AFTER styles are present
@@ -187,26 +194,56 @@ const { title, description, image, canonical, type, schema } = Astro.props;
             if (m.initHeaderEffects) {
               m.initHeaderEffects({ enableParticles: !isMobile });
             }
-          }).catch(err => console.warn('Failed to load header-effects:', err));
+          }).catch(() => {});
 
           import('/scripts/counters.js').then(m => {
             if (m.initCounters) {
               m.initCounters();
             }
-          }).catch(err => console.warn('Failed to load counters:', err));
+          }).catch(() => {});
 
           import('/scripts/scroll-animations.js').then(m => {
             if (m.initScrollAnimations) {
               m.initScrollAnimations();
             }
-          }).catch(err => console.warn('Failed to load scroll-animations:', err));
+          }).catch(() => {});
         };
 
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadAnimations, { timeout: 2500 });
+        // Load after user interaction (scroll, click, touch) or after long delay
+        const loadOnInteraction = () => {
+          loadAnimations();
+          // Remove listeners after first load
+          window.removeEventListener('scroll', loadOnInteraction, { passive: true });
+          window.removeEventListener('click', loadOnInteraction);
+          window.removeEventListener('touchstart', loadOnInteraction, { passive: true });
+        };
+
+        // Try to load after LCP (if available) or after page is fully loaded
+        if ('PerformanceObserver' in window) {
+          try {
+            const lcpObserver = new PerformanceObserver((list) => {
+              const entries = list.getEntries();
+              const lastEntry = entries[entries.length - 1];
+              // Wait additional 1s after LCP before loading animations
+              setTimeout(loadAnimations, 1000);
+              lcpObserver.disconnect();
+            });
+            lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+          } catch (e) {
+            // Fallback if LCP observer fails
+            setTimeout(loadAnimations, 3000);
+          }
         } else {
-          window.addEventListener('load', loadAnimations, { once: true });
+          // Fallback: load after page load + delay
+          window.addEventListener('load', () => {
+            setTimeout(loadAnimations, 2000);
+          }, { once: true });
         }
+
+        // Also load on first user interaction (scroll, click, touch)
+        window.addEventListener('scroll', loadOnInteraction, { passive: true, once: true });
+        window.addEventListener('click', loadOnInteraction, { once: true });
+        window.addEventListener('touchstart', loadOnInteraction, { passive: true, once: true });
       })();
     </script>
 

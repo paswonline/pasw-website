@@ -30,7 +30,7 @@ Created by <a href="http://drozniak.pl/" target="_blank" rel="noopener noreferre
                 <p class="text-sm opacity-75">Miniatura niedostępna</p>
               </div>
             </div>
-          `};window.checkAndReplaceGrayThumbnail=function(e){console.log(`[YouTube] Image loaded: ${e.src}, size: ${e.naturalWidth}x${e.naturalHeight}`),e.naturalWidth===120&&e.naturalHeight===90?(console.log("[YouTube] Detected 120x90 placeholder, trying next..."),window.handleThumbnailError(e)):console.log("[YouTube] Thumbnail looks good, keeping it")};const t=document.querySelector("[data-back-to-top]");if(t){let e=function(){window.scrollY>300?t.classList.remove("opacity-0","invisible"):t.classList.add("opacity-0","invisible")};window.addEventListener("scroll",e,{passive:!0}),t.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})})}</script> <!-- Defer non-critical animations and header effects --> <script type="module">
+          `};window.checkAndReplaceGrayThumbnail=function(e){console.log(`[YouTube] Image loaded: ${e.src}, size: ${e.naturalWidth}x${e.naturalHeight}`),e.naturalWidth===120&&e.naturalHeight===90?(console.log("[YouTube] Detected 120x90 placeholder, trying next..."),window.handleThumbnailError(e)):console.log("[YouTube] Thumbnail looks good, keeping it")};const t=document.querySelector("[data-back-to-top]");if(t){let e=function(){window.scrollY>300?t.classList.remove("opacity-0","invisible"):t.classList.add("opacity-0","invisible")};window.addEventListener("scroll",e,{passive:!0}),t.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})})}</script> <!-- Defer non-critical animations and header effects - load after LCP/interaction --> <script type="module">
       (() => {
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const isMobile = window.innerWidth < 768;
@@ -38,11 +38,18 @@ Created by <a href="http://drozniak.pl/" target="_blank" rel="noopener noreferre
         // Skip heavy motion for reduced motion users; on phones skip particles/orbs entirely
         if (prefersReduced) return;
 
+        let animationsLoaded = false;
+
         const loadAnimations = () => {
-          // Load animations stylesheet
+          if (animationsLoaded) return;
+          animationsLoaded = true;
+
+          // Load animations stylesheet asynchronously
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = '/styles/animations.css';
+          link.media = 'print';
+          link.onload = () => { link.media = 'all'; };
           document.head.appendChild(link);
 
           // Initialize header effects and counters AFTER styles are present
@@ -50,25 +57,55 @@ Created by <a href="http://drozniak.pl/" target="_blank" rel="noopener noreferre
             if (m.initHeaderEffects) {
               m.initHeaderEffects({ enableParticles: !isMobile });
             }
-          }).catch(err => console.warn('Failed to load header-effects:', err));
+          }).catch(() => {});
 
           import('/scripts/counters.js').then(m => {
             if (m.initCounters) {
               m.initCounters();
             }
-          }).catch(err => console.warn('Failed to load counters:', err));
+          }).catch(() => {});
 
           import('/scripts/scroll-animations.js').then(m => {
             if (m.initScrollAnimations) {
               m.initScrollAnimations();
             }
-          }).catch(err => console.warn('Failed to load scroll-animations:', err));
+          }).catch(() => {});
         };
 
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadAnimations, { timeout: 2500 });
+        // Load after user interaction (scroll, click, touch) or after long delay
+        const loadOnInteraction = () => {
+          loadAnimations();
+          // Remove listeners after first load
+          window.removeEventListener('scroll', loadOnInteraction, { passive: true });
+          window.removeEventListener('click', loadOnInteraction);
+          window.removeEventListener('touchstart', loadOnInteraction, { passive: true });
+        };
+
+        // Try to load after LCP (if available) or after page is fully loaded
+        if ('PerformanceObserver' in window) {
+          try {
+            const lcpObserver = new PerformanceObserver((list) => {
+              const entries = list.getEntries();
+              const lastEntry = entries[entries.length - 1];
+              // Wait additional 1s after LCP before loading animations
+              setTimeout(loadAnimations, 1000);
+              lcpObserver.disconnect();
+            });
+            lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+          } catch (e) {
+            // Fallback if LCP observer fails
+            setTimeout(loadAnimations, 3000);
+          }
         } else {
-          window.addEventListener('load', loadAnimations, { once: true });
+          // Fallback: load after page load + delay
+          window.addEventListener('load', () => {
+            setTimeout(loadAnimations, 2000);
+          }, { once: true });
         }
+
+        // Also load on first user interaction (scroll, click, touch)
+        window.addEventListener('scroll', loadOnInteraction, { passive: true, once: true });
+        window.addEventListener('click', loadOnInteraction, { once: true });
+        window.addEventListener('touchstart', loadOnInteraction, { passive: true, once: true });
       })();
     </script>  </body> </html>  <script type="module">function s(){const n=document.querySelectorAll("[data-animate-on-scroll]"),o=new IntersectionObserver(t=>{t.forEach(e=>{e.isIntersecting&&(e.target.classList.add("animate-slide-up"),o.unobserve(e.target))})},{threshold:.1});n.forEach(t=>o.observe(t))}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",s):s();function i(){document.querySelectorAll(".scroll-to-video-btn").forEach(o=>{o.addEventListener("click",function(){const t=this.getAttribute("data-target-video"),e=document.getElementById(`video-${t}`);e&&(e.scrollIntoView({behavior:"smooth",block:"center"}),e.style.transition="box-shadow 0.3s ease",e.style.boxShadow="0 0 30px rgba(229, 57, 53, 0.6)",setTimeout(()=>{e.style.boxShadow=""},2e3))})})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i):i();</script>
