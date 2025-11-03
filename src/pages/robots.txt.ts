@@ -7,7 +7,7 @@ const robots = `
 User-agent: *
 Allow: /
 
-Sitemap: ${import.meta.env.SITE_URL || 'https://pasw.pl'}/sitemap.xml
+Sitemap: ${import.meta.env.SITE_URL || 'https://pasw.com.pl'}/sitemap.xml
 `.trim();
 
 export const GET: APIRoute = () => {

@@ -5,7 +5,7 @@ import type { APIRoute } from 'astro';
 import { getEvents } from '../lib/cms';
 
 export const GET: APIRoute = async () => {
-  const siteUrl = import.meta.env.SITE_URL || 'https://pasw.pl';
+  const siteUrl = import.meta.env.SITE_URL || 'https://pasw.com.pl';
   const events = await getEvents();
 
   // Static pages

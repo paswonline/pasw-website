@@ -6,20 +6,23 @@ interface Props extends SEOProps {}
 const {
   title,
   description,
-  image = '/images/pasw_logo.svg',
+  image,
   canonical,
   type = 'website',
 } = Astro.props;
 
-const siteUrl = import.meta.env.SITE_URL || 'https://pasw.pl';
+const siteUrl = import.meta.env.SITE_URL || 'https://pasw.com.pl';
 // Ensure canonical URL is consistent (trailing slash handling)
 const currentPath = Astro.url.pathname;
 const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/\/$/, '');
 const canonicalUrl = canonical || new URL(normalizedPath, siteUrl).href;
 const fullTitle = title.includes('PASW') || title.includes('Pszczyńska Akademia') ? title : `${title} | Pszczyńska Akademia Sztuk Walki`;
 const siteName = 'Pszczyńska Akademia Sztuk Walki';
-const imageUrl = image.startsWith('http') ? image : new URL(image, siteUrl).href;
-// OG image dimensions (preferred 1200x630, but we'll use actual logo dimensions)
+// Default OG image for social preview (1200x630)
+const defaultOgImage = '/images/pasw-sztuki-walki-og.jpg';
+const ogImagePath = image || defaultOgImage;
+const imageUrl = ogImagePath.startsWith('http') ? ogImagePath : new URL(ogImagePath, siteUrl).href;
+// OG image dimensions (1200x630 for optimal social sharing)
 const ogImageWidth = '1200';
 const ogImageHeight = '630';
 ---

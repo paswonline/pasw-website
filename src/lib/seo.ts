@@ -8,7 +8,7 @@ import type { GlobalSettings } from '../types';
  * Generate comprehensive Organization and SportsActivityLocation schema.org JSON-LD
  */
 export function generateLocalBusinessSchema(settings: GlobalSettings): object {
-  const siteUrl = import.meta.env.SITE_URL || 'https://pasw.pl';
+  const siteUrl = import.meta.env.SITE_URL || 'https://pasw.com.pl';
   const baseAddress = {
     '@type': 'PostalAddress',
     streetAddress: settings.address,
@@ -99,7 +99,7 @@ export function generateEventSchema(event: {
   slug?: string;
   cover?: string;
 }) {
-  const siteUrl = import.meta.env.SITE_URL || 'https://pasw.pl';
+  const siteUrl = import.meta.env.SITE_URL || 'https://pasw.com.pl';
   
   return {
     '@context': 'https://schema.org',
