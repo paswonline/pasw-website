@@ -42,21 +42,8 @@
 }
 
 @layer base {
-  @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-  }
-  
-  @font-face {
-    font-family: 'Bebas Neue';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-  }
+  /* Fonts are loaded via Google Fonts link in head - removed duplicate @font-face declarations */
+  /* Using system fonts as fallback until Google Fonts load */
 
   html {
     font-family: var(--font-sans);

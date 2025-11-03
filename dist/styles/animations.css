@@ -157,12 +157,9 @@
 }
 
 /* Slide-up Animation */
-/* Elements stay visible - only animate transform for smooth experience */
+/* Only add transition - don't change initial state to prevent flickering */
 [data-animate-on-scroll] {
-  /* Start from slightly below, but keep visible */
-  transform: translateY(20px);
   transition: transform 0.6s ease, opacity 0.4s ease;
-  opacity: 1;
 }
 
 [data-animate-on-scroll].animate-slide-up {

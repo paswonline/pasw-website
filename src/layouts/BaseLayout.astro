@@ -32,11 +32,26 @@ const { title, description, image, canonical, type, schema } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
-    <!-- Fonts with font-display: swap for better performance -->
+    <!-- Preload hero logo for faster LCP -->
+    <link rel="preload" href="/images/pasw_logo.svg" as="image" type="image/svg+xml" fetchpriority="high" />
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    
+    <!-- Defer Google Fonts loading to not block render -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bebas+Neue&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bebas+Neue&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     
     <!-- Favicon and Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
