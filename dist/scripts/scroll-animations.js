@@ -1,6 +1,7 @@
 /**
  * Scroll animations - deferred loading for performance
  * Initializes IntersectionObserver for data-animate-on-scroll elements
+ * Elements remain visible - only transform is animated
  */
 export function initScrollAnimations() {
   const elements = document.querySelectorAll('[data-animate-on-scroll]');
@@ -9,7 +10,7 @@ export function initScrollAnimations() {
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   
-  // If reduced motion or animations CSS not loaded yet, show elements immediately
+  // If reduced motion, show final state immediately
   if (prefersReducedMotion) {
     elements.forEach(el => {
       el.classList.add('animate-slide-up');
@@ -17,30 +18,23 @@ export function initScrollAnimations() {
     return;
   }
 
-  // Wait a bit for animations.css to load and apply the hidden state
-  // Then initialize observer
-  const initObserver = () => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-slide-up');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+  // Initialize observer - elements are already visible, just animate transform
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-slide-up');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
 
-    elements.forEach((el) => {
-      // Ensure element starts hidden if animations.css loaded
-      if (!el.classList.contains('animate-slide-up')) {
-        observer.observe(el);
-      }
-    });
-  };
-
-  // Small delay to ensure CSS is applied
-  setTimeout(initObserver, 100);
+  elements.forEach((el) => {
+    if (!el.classList.contains('animate-slide-up')) {
+      observer.observe(el);
+    }
+  });
 }
 
