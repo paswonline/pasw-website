@@ -53,6 +53,8 @@ const { title, description, image, canonical, type, schema } = Astro.props;
         <script type="application/ld+json" set:html={JSON.stringify(schema)} />
       )
     )}
+    
+    <!-- Note: External scripts injected by server/hosting should be moved to body with defer for optimal performance -->
   </head>
   <body>
     <Header />
