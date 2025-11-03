@@ -157,15 +157,16 @@
 }
 
 /* Slide-up Animation */
-[data-animate-on-scroll] {
+/* Elements are visible by default in base CSS, only hidden when animations.css loads */
+[data-animate-on-scroll]:not(.animate-slide-up) {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.6s ease;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .animate-slide-up {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* Glass Badge Float Animation */

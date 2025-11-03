@@ -75,5 +75,11 @@ const iconPaths: Record<string, string> = {
     transform: translateY(-4px);
     box-shadow: 0 8px 25px rgba(229, 57, 53, 0.4);
   }
+
+  /* Ensure elements are visible by default - animations.css will hide them if loaded */
+  [data-animate-on-scroll] {
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
 

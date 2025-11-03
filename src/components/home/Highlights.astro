@@ -53,5 +53,11 @@ const { highlights } = Astro.props;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  /* Ensure elements are visible by default - animations.css will hide them if loaded */
+  [data-animate-on-scroll] {
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
 

@@ -179,6 +179,12 @@ const { title, description, image, canonical, type, schema } = Astro.props;
               m.initCounters();
             }
           }).catch(err => console.warn('Failed to load counters:', err));
+
+          import('/scripts/scroll-animations.js').then(m => {
+            if (m.initScrollAnimations) {
+              m.initScrollAnimations();
+            }
+          }).catch(err => console.warn('Failed to load scroll-animations:', err));
         };
 
         if ('requestIdleCallback' in window) {

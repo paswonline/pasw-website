@@ -48,6 +48,12 @@ Created by <a href="http://drozniak.pl/" target="_blank" rel="noopener noreferre
               m.initCounters();
             }
           }).catch(err => console.warn('Failed to load counters:', err));
+
+          import('/scripts/scroll-animations.js').then(m => {
+            if (m.initScrollAnimations) {
+              m.initScrollAnimations();
+            }
+          }).catch(err => console.warn('Failed to load scroll-animations:', err));
         };
 
         if ('requestIdleCallback' in window) {
