@@ -6,41 +6,53 @@ interface Props extends SEOProps {}
 const {
   title,
   description,
-  image = '/images/og-default.jpg',
+  image = '/images/pasw_logo.svg',
   canonical,
   type = 'website',
 } = Astro.props;
 
 const siteUrl = import.meta.env.SITE_URL || 'https://pasw.pl';
-const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
-const fullTitle = title.includes('PASW') ? title : `${title} | Pszczyńska Akademia Sztuk Walki`;
+// Ensure canonical URL is consistent (trailing slash handling)
+const currentPath = Astro.url.pathname;
+const normalizedPath = currentPath === '/' ? '/' : currentPath.replace(/\/$/, '');
+const canonicalUrl = canonical || new URL(normalizedPath, siteUrl).href;
+const fullTitle = title.includes('PASW') || title.includes('Pszczyńska Akademia') ? title : `${title} | Pszczyńska Akademia Sztuk Walki`;
+const siteName = 'Pszczyńska Akademia Sztuk Walki';
 const imageUrl = image.startsWith('http') ? image : new URL(image, siteUrl).href;
+// OG image dimensions (preferred 1200x630, but we'll use actual logo dimensions)
+const ogImageWidth = '1200';
+const ogImageHeight = '630';
 ---
 
 <!-- Primary Meta Tags -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{fullTitle}</title>
-<meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
+<meta name="author" content="MONLINE - Stanisław Drożniak" />
 <link rel="canonical" href={canonicalUrl} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteName} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content={ogImageWidth} />
+<meta property="og:image:height" content={ogImageHeight} />
 <meta property="og:locale" content="pl_PL" />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalUrl} />
-<meta property="twitter:title" content={fullTitle} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={imageUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
 
-<!-- Additional -->
+<!-- Additional SEO -->
 <meta name="robots" content="index, follow" />
-<meta name="language" content="Polish" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta charset="UTF-8" />
+<meta name="language" content="pl" />
+<meta name="geo.region" content="PL-SL" />
+<meta name="geo.placename" content="Pszczyna" />
 

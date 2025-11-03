@@ -36,6 +36,7 @@ const gridClasses = {
           src={thumbUrl}
           alt={item.alt || item.caption || `Zdjęcie galerii ${index + 1}`}
           loading="lazy"
+          decoding="async"
           class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
         />
         

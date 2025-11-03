@@ -12,6 +12,7 @@ export const GET: APIRoute = async () => {
   const staticPages = [
     '',
     '/aktualnosci',
+    '/filmy',
     '/historia',
     '/nasze-sekcje',
     '/polityka-prywatnosci',

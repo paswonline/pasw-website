@@ -18,6 +18,8 @@ const { title, description, image, canonical, type, schema } = Astro.props;
 <!DOCTYPE html>
 <html lang="pl">
   <head>
+    <!-- Created by MONLINE - Stanisław Drożniak (http://drozniak.pl/) -->
+    
     <SEO 
       title={title}
       description={description}
@@ -26,22 +28,29 @@ const { title, description, image, canonical, type, schema } = Astro.props;
       type={type}
     />
     
-    <!-- Preconnect to external domains -->
+    <!-- Preconnect to external domains for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
-    <!-- Fonts -->
+    <!-- Fonts with font-display: swap for better performance -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bebas+Neue&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Favicon -->
+    
+    <!-- Favicon and Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/pasw_logo.svg" />
 
     <!-- Schema.org JSON-LD -->
     {schema && (
-      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      Array.isArray(schema) ? (
+        schema.map((s) => (
+          <script type="application/ld+json" set:html={JSON.stringify(s)} />
+        ))
+      ) : (
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      )
     )}
   </head>
   <body>

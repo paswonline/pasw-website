@@ -13,7 +13,7 @@ import { generateLocalBusinessSchema } from '../lib/seo';
 const homepage = await getHomepage();
 const settings = await getGlobalSettings();
 
-// Generate schema.org data
+// Generate schema.org data (returns array of Organization and SportsActivityLocation)
 const schema = settings ? generateLocalBusinessSchema(settings) : null;
 ---
 
@@ -24,6 +24,9 @@ const schema = settings ? generateLocalBusinessSchema(settings) : null;
 >
   {homepage && (
     <>
+      {/* Screen reader only H1 for semantic structure and SEO */}
+      <h1 class="sr-only">Pszczyńska Akademia Sztuk Walki - Treningi kung-fu, jiu-jitsu i systema w Pszczynie</h1>
+      
       <Hero
         title={homepage.heroTitle}
         subtitle={homepage.heroSubtitle}
