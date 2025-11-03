@@ -50,7 +50,7 @@ const {
   <div class="container-custom relative z-10 py-20 md:py-0">
     <div class="max-w-5xl mx-auto text-center">
       <!-- Logo -->
-      <div class="hero-logo animate-fade-in" style="animation-delay: 0.1s;">
+      <div class="hero-logo">
         <img 
           src="/images/pasw_logo.svg" 
           alt="Logo Pszczyńskiej Akademii Sztuk Walki"
@@ -65,16 +65,14 @@ const {
 
       <!-- Subtitle -->
       <p 
-        class="text-xl md:text-2xl lg:text-3xl mb-10 md:mb-12 max-w-3xl mx-auto text-balance animate-fade-in hero-subtitle-gradient"
-        style="animation-delay: 0.15s;"
+        class="text-xl md:text-2xl lg:text-3xl mb-10 md:mb-12 max-w-3xl mx-auto text-balance hero-subtitle-gradient"
         set:html={subtitle}
       >
       </p>
 
       <!-- CTAs -->
       <div 
-        class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in"
-        style="animation-delay: 0.2s;"
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center"
       >
         <a
           href={ctaPrimaryUrl}
