@@ -166,7 +166,7 @@ const { title, description, image, canonical, type, schema } = Astro.props;
       }
     </script>
 
-    <!-- Load animations - optimized for mobile, normal for desktop -->
+    <!-- Load animations - optimized for mobile (defer until interaction), normal for desktop -->
     <script type="module">
       (() => {
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -175,7 +175,12 @@ const { title, description, image, canonical, type, schema } = Astro.props;
         // Skip animations for reduced motion users
         if (prefersReduced) return;
 
+        let animationsLoaded = false;
+
         const loadAnimations = () => {
+          if (animationsLoaded) return;
+          animationsLoaded = true;
+
           // Load animations stylesheet - use async loading for mobile, normal for desktop
           const link = document.createElement('link');
           link.rel = 'stylesheet';
@@ -209,26 +214,35 @@ const { title, description, image, canonical, type, schema } = Astro.props;
           }).catch(() => {});
         };
 
-        // On desktop: load immediately via requestIdleCallback (fast)
-        // On mobile: load after page is interactive (better performance)
+        // On desktop: load immediately via requestIdleCallback (fast, was working fine)
+        // On mobile: defer until user interaction OR after long delay (4s) to avoid critical path
         if (isMobile) {
-          // Mobile: load after page is interactive but not blocking
-          if (document.readyState === 'complete') {
-            // Use requestIdleCallback with short timeout for mobile
-            if ('requestIdleCallback' in window) {
-              requestIdleCallback(loadAnimations, { timeout: 500 });
-            } else {
-              setTimeout(loadAnimations, 100);
+          // Mobile strategy: load on first interaction OR after 4 seconds
+          // This removes animations from critical path while keeping UX smooth
+          let loadedOnInteraction = false;
+
+          const loadOnInteraction = () => {
+            if (!loadedOnInteraction) {
+              loadedOnInteraction = true;
+              loadAnimations();
+              // Clean up listeners
+              window.removeEventListener('scroll', loadOnInteraction, { passive: true });
+              window.removeEventListener('touchstart', loadOnInteraction, { passive: true });
+              window.removeEventListener('click', loadOnInteraction);
             }
-          } else {
-            window.addEventListener('load', () => {
-              if ('requestIdleCallback' in window) {
-                requestIdleCallback(loadAnimations, { timeout: 500 });
-              } else {
-                setTimeout(loadAnimations, 100);
-              }
-            }, { once: true });
-          }
+          };
+
+          // Load on first user interaction (scroll, touch, click)
+          window.addEventListener('scroll', loadOnInteraction, { passive: true, once: true });
+          window.addEventListener('touchstart', loadOnInteraction, { passive: true, once: true });
+          window.addEventListener('click', loadOnInteraction, { once: true });
+
+          // Fallback: load after 4 seconds if no interaction (ensures animations work eventually)
+          setTimeout(() => {
+            if (!loadedOnInteraction) {
+              loadAnimations();
+            }
+          }, 4000);
         } else {
           // Desktop: load via requestIdleCallback immediately (was working fine)
           if ('requestIdleCallback' in window) {
